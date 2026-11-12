@@ -11,7 +11,7 @@
             background-color: #0b0b0b;
             color: #f3f4f6;
             font-family: 'Inter', sans-serif;
-            background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.92)), url('sfondo.png');
+            background-image: linear-gradient(rgba(0,0,0,0.88), rgba(0,0,0,0.95)), url('sfondo.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -24,28 +24,28 @@
 <body class="flex flex-col min-h-screen">
 
     <!-- HEADER / NAVIGATION -->
-    <header class="bg-black/90 backdrop-blur-md border-b border-pink-500/30 sticky top-0 z-50">
+    <header class="bg-black/95 backdrop-blur-md border-b border-pink-500/20 sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-4">
             
             <!-- Logo & Title -->
             <div class="flex items-center gap-3">
-                <img src="log.png" alt="Logo Basi Azotate FC" class="w-12 h-12 object-contain rounded-full border-2 border-pink-500 shadow-[0_0_15px_rgba(236,72,153,0.4)]">
+                <img src="logo.png" alt="Logo Basi Azotate FC" class="w-11 h-11 object-contain rounded-full border-2 border-pink-500 shadow-[0_0_12px_rgba(236,72,153,0.4)]" onerror="this.src='https://via.placeholder.com/150/000000/ff69b4?text=BA'">
                 <div>
-                    <h1 class="text-xl font-black tracking-wider text-white uppercase italic">Basi Azotate <span class="text-pink-500">FC</span></h1>
-                    <p class="text-xs text-gray-400">Official Pro Clubs Team</p>
+                    <h1 class="text-lg font-black tracking-wider text-white uppercase italic">Basi Azotate <span class="text-pink-500">FC</span></h1>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Official Pro Clubs</p>
                 </div>
             </div>
 
             <!-- Navigation Tabs -->
-            <nav class="flex flex-wrap justify-center gap-2 bg-zinc-900/90 p-1.5 rounded-xl border border-zinc-800">
-                <button onclick="switchTab('home')" id="btn-home" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-pink-600 text-white shadow-md">Home</button>
-                <button onclick="switchTab('stats')" id="btn-stats" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all text-zinc-400 hover:text-white hover:bg-zinc-800">Stats</button>
-                <button onclick="switchTab('rosa')" id="btn-rosa" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all text-zinc-400 hover:text-white hover:bg-zinc-800">Rosa</button>
-                <button onclick="switchTab('notizie')" id="btn-notizie" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all text-zinc-400 hover:text-white hover:bg-zinc-800">Notizie</button>
+            <nav class="flex flex-wrap justify-center gap-1.5 bg-zinc-900/90 p-1.5 rounded-xl border border-zinc-800">
+                <button onclick="switchTab('home')" id="btn-home" class="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all bg-pink-600 text-white shadow-md">Home</button>
+                <button onclick="switchTab('stats')" id="btn-stats" class="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all text-zinc-400 hover:text-white hover:bg-zinc-800">Stats</button>
+                <button onclick="switchTab('rosa')" id="btn-rosa" class="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all text-zinc-400 hover:text-white hover:bg-zinc-800">Rosa</button>
+                <button onclick="switchTab('notizie')" id="btn-notizie" class="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all text-zinc-400 hover:text-white hover:bg-zinc-800">Notizie</button>
             </nav>
 
             <!-- Social Links -->
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2.5">
                 <a href="https://www.instagram.com/basi_azotate_fc/?__pwa=1" target="_blank" class="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 hover:text-pink-500 hover:border-pink-500 transition-all">
                     <i class="fab fa-instagram"></i>
                 </a>
@@ -59,71 +59,69 @@
     <!-- MAIN CONTAINER -->
     <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8">
 
-        <!-- TAB HOME (Completamente rinnovata e stilosa) -->
+        <!-- TAB HOME (Rinnovata, pulita ed elegante con logo.png) -->
         <div id="home" class="tab-content active space-y-8">
-            <!-- Hero Banner -->
-            <div class="relative rounded-3xl overflow-hidden border border-pink-500/40 bg-gradient-to-br from-zinc-900 via-zinc-900/90 to-pink-950/50 p-8 md:p-14 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="relative rounded-3xl overflow-hidden border border-zinc-800 bg-zinc-900/60 backdrop-blur-xl p-8 md:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
                 <div class="space-y-4 max-w-xl text-center md:text-left">
                     <div class="inline-flex items-center gap-2 bg-pink-500/10 border border-pink-500/30 px-3 py-1 rounded-full text-pink-400 text-xs font-bold uppercase tracking-wider">
-                        <span class="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></span> Club Ufficiale Pro Clubs
+                        <span class="w-2 h-2 rounded-full bg-pink-500 animate-ping"></span> Stagione Attiva · Next-Gen
                     </div>
                     <h2 class="text-4xl md:text-6xl font-black text-white tracking-tight uppercase italic">Basi Azotate <span class="text-pink-500">FC</span></h2>
-                    <p class="text-gray-300 text-sm md:text-base leading-relaxed">Benvenuti nella casa ufficiale della squadra. Gioco duro, affiatamento e divertimento puro sui campi virtuali di EA Sports FC. Nessuna resa, mai.</p>
-                    <div class="pt-2 flex flex-wrap justify-center md:justify-start gap-4">
-                        <button onclick="switchTab('stats')" class="bg-pink-600 hover:bg-pink-500 text-white font-bold px-6 py-3 rounded-xl transition-all shadow-lg shadow-pink-600/30 text-sm flex items-center gap-2">
-                            <i class="fas fa-chart-bar"></i> Vedi Statistiche
+                    <p class="text-gray-300 text-sm md:text-base leading-relaxed">La casa ufficiale del club su Pro Clubs. Compagno di squadra, sudore, giocate spettacolari e zero scuse. Entra nella leggenda con noi.</p>
+                    <div class="pt-3 flex flex-wrap justify-center md:justify-start gap-3">
+                        <button onclick="switchTab('stats')" class="bg-pink-600 hover:bg-pink-500 text-white font-bold px-6 py-3 rounded-xl transition-all shadow-lg shadow-pink-600/30 text-xs uppercase tracking-wider flex items-center gap-2">
+                            <i class="fas fa-chart-bar"></i> Vedi Stats
                         </button>
-                        <button onclick="switchTab('rosa')" class="bg-zinc-800 hover:bg-zinc-700 text-white font-semibold px-6 py-3 rounded-xl border border-zinc-700 transition-all text-sm flex items-center gap-2">
-                            <i class="fas fa-users"></i> Esplora la Rosa
+                        <button onclick="switchTab('rosa')" class="bg-zinc-800 hover:bg-zinc-700 text-white font-semibold px-6 py-3 rounded-xl border border-zinc-700 transition-all text-xs uppercase tracking-wider flex items-center gap-2">
+                            <i class="fas fa-users"></i> La Rosa
                         </button>
                     </div>
                 </div>
-                <div class="relative">
-                    <div class="w-48 h-48 md:w-60 md:h-60 rounded-full border-4 border-pink-500/50 p-2 bg-black/50 backdrop-blur-md shadow-[0_0_30px_rgba(236,72,153,0.3)] flex items-center justify-center">
-                        <img src="logo.png" alt="Logo" class="w-full h-full object-contain rounded-full">
+                
+                <!-- Logo Home in primo piano -->
+                <div class="flex-shrink-0">
+                    <div class="w-52 h-52 md:w-64 md:h-64 rounded-3xl border-2 border-pink-500/40 p-4 bg-black/70 backdrop-blur-md shadow-[0_0_40px_rgba(236,72,153,0.25)] flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="logo.png" alt="Logo Basi Azotate FC" class="w-full h-full object-contain rounded-2xl" onerror="this.src='https://via.placeholder.com/150/000000/ff69b4?text=LOGO'">
                     </div>
                 </div>
             </div>
 
-            <!-- Grid Features / Social Quick Access -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Instagram Card -->
-                <a href="https://www.instagram.com/basi_azotate_fc/?__pwa=1" target="_blank" class="group bg-gradient-to-r from-zinc-900 to-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 p-6 rounded-2xl transition-all shadow-lg flex items-center gap-5">
+            <!-- Social Links Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <a href="https://www.instagram.com/basi_azotate_fc/?__pwa=1" target="_blank" class="group bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 p-6 rounded-2xl transition-all shadow-lg flex items-center gap-5">
                     <div class="w-14 h-14 rounded-xl bg-pink-600/10 border border-pink-500/30 flex items-center justify-center text-pink-500 text-2xl group-hover:scale-110 transition-transform">
                         <i class="fab fa-instagram"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-white group-hover:text-pink-400 transition-colors">Seguici su Instagram</h3>
-                        <p class="text-xs text-gray-400 mt-1">@basi_azotate_fc — Storie, foto e clip esclusive dallo spogliatoio.</p>
+                        <h3 class="text-base font-bold text-white group-hover:text-pink-400 transition-colors">Instagram Ufficiale</h3>
+                        <p class="text-xs text-gray-400 mt-0.5">Segui @basi_azotate_fc per foto, storie e backstage.</p>
                     </div>
                 </a>
 
-                <!-- TikTok Card -->
-                <a href="https://www.tiktok.com/@basi.azotate.fc" target="_blank" class="group bg-gradient-to-r from-zinc-900 to-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 p-6 rounded-2xl transition-all shadow-lg flex items-center gap-5">
+                <a href="https://www.tiktok.com/@basi.azotate.fc" target="_blank" class="group bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 p-6 rounded-2xl transition-all shadow-lg flex items-center gap-5">
                     <div class="w-14 h-14 rounded-xl bg-pink-600/10 border border-pink-500/30 flex items-center justify-center text-pink-500 text-2xl group-hover:scale-110 transition-transform">
                         <i class="fab fa-tiktok"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-white group-hover:text-pink-400 transition-colors">Seguici su TikTok</h3>
-                        <p class="text-xs text-gray-400 mt-1">Basi Azotate FC — Le nostre migliori giocate e meme virali.</p>
+                        <h3 class="text-base font-bold text-white group-hover:text-pink-400 transition-colors">TikTok Ufficiale</h3>
+                        <p class="text-xs text-gray-400 mt-0.5">Clip virali, gol assurdi e momenti epici del team.</p>
                     </div>
                 </a>
             </div>
         </div>
 
-        <!-- TAB STATS (Dinamico con incorporamento live) -->
+        <!-- TAB STATS -->
         <div id="stats" class="tab-content space-y-6">
             <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-6 md:p-8 space-y-4">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                        <h2 class="text-2xl font-bold text-white">Statistiche Live Basi Azotate FC</h2>
-                        <p class="text-gray-400 text-sm">Panoramica completa e aggiornata in tempo reale.</p>
+                        <h2 class="text-2xl font-bold text-white">Statistiche Live</h2>
+                        <p class="text-gray-400 text-sm">Aggiornate automaticamente in tempo reale dai server EA.</p>
                     </div>
                     <a href="https://proclubsfinder.com/club/squad?clubId=672823&clubName=Basi%20Azotate%20FC&platform=common-gen5" target="_blank" class="bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-md inline-flex items-center gap-2">
-                        <i class="fas fa-external-link-alt"></i> Apri a schermo intero
+                        <i class="fas fa-external-link-alt"></i> Schermo Intero
                     </a>
                 </div>
-                <!-- Integrated Live View Widget Container -->
                 <div class="w-full h-[650px] bg-zinc-950 rounded-xl overflow-hidden border border-zinc-800 relative">
                     <iframe src="https://proclubsfinder.com/club/squad?clubId=672823&clubName=Basi%20Azotate%20FC&platform=common-gen5" class="w-full h-full border-0" title="Basi Azotate FC Stats"></iframe>
                 </div>
@@ -138,11 +136,10 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
                 <!-- PROF UGO -->
                 <div class="bg-zinc-900/80 border border-pink-500/50 hover:border-pink-500 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
                     <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
-                        <img src="prof.png" alt="PROF UGO" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
+                        <img src="prof.png" alt="PROF UGO" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500" onerror="this.src='logo.png'">
                         <span class="absolute top-3 right-3 bg-pink-600 text-white text-xs font-bold px-2.5 py-1 rounded-lg border border-pink-500/30">COACH</span>
                     </div>
                     <div class="p-5 flex flex-col flex-grow justify-between">
@@ -160,7 +157,7 @@
                 <!-- HELLO TIKKI -->
                 <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
                     <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
-                        <img src="tikki.png" alt="HELLO TIKKI" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
+                        <img src="tikki.png" alt="HELLO TIKKI" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500" onerror="this.src='logo.png'">
                         <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-pink-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-pink-500/30">GK</span>
                     </div>
                     <div class="p-5 flex flex-col flex-grow justify-between">
@@ -178,7 +175,7 @@
                 <!-- SAY WALLAHI -->
                 <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
                     <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
-                        <img src="wallahi.png" alt="SAY WALLAHI" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
+                        <img src="wallahi.png" alt="SAY WALLAHI" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500" onerror="this.src='logo.png'">
                         <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-pink-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-pink-500/30">CB</span>
                     </div>
                     <div class="p-5 flex flex-col flex-grow justify-between">
@@ -196,7 +193,7 @@
                 <!-- MEPIAC LUCAZZ -->
                 <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
                     <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
-                        <img src="mep.png" alt="MEPIAC LUCAZZ" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
+                        <img src="mep.png" alt="MEPIAC LUCAZZ" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500" onerror="this.src='logo.png'">
                         <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-pink-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-pink-500/30">CM</span>
                     </div>
                     <div class="p-5 flex flex-col flex-grow justify-between">
@@ -214,7 +211,7 @@
                 <!-- PASQUALE TORTELLONI -->
                 <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
                     <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
-                        <img src="pasquale.png" alt="PASQUALE TORTELLONI" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
+                        <img src="pasquale.png" alt="PASQUALE TORTELLONI" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500" onerror="this.src='logo.png'">
                         <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-pink-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-pink-500/30">CM</span>
                     </div>
                     <div class="p-5 flex flex-col flex-grow justify-between">
@@ -232,7 +229,7 @@
                 <!-- THOMAS MAITURBATO -->
                 <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
                     <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
-                        <img src="mai.png" alt="THOMAS MAITURBATO" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
+                        <img src="mai.png" alt="THOMAS MAITURBATO" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500" onerror="this.src='logo.png'">
                         <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-pink-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-pink-500/30">ST</span>
                     </div>
                     <div class="p-5 flex flex-col flex-grow justify-between">
@@ -250,7 +247,7 @@
                 <!-- CAPO CRIBIO -->
                 <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
                     <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
-                        <img src="cribio.png" alt="CAPO CRIBIO" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
+                        <img src="cribio.png" alt="CAPO CRIBIO" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500" onerror="this.src='logo.png'">
                         <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-pink-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-pink-500/30">ST</span>
                     </div>
                     <div class="p-5 flex flex-col flex-grow justify-between">
@@ -264,7 +261,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -273,11 +269,11 @@
             <div class="flex justify-between items-center">
                 <div>
                     <h2 class="text-2xl font-bold text-white">Ultime Notizie & Comunicati</h2>
-                    <p class="text-sm text-gray-400">Aggiornamenti dal campo, mercato e spogliatoio.</p>
+                    <p class="text-sm text-gray-400">Aggiornamenti dal campo e dallo spogliatoio.</p>
                 </div>
             </div>
 
-            <!-- News Input Form (Completamente nascosto agli utenti, si sblocca solo con la combinazione segreta) -->
+            <!-- Pannello Segreto (Si attiva premendo CTRL + SHIFT + A) -->
             <div id="news-form-container" class="hidden bg-zinc-900 border border-pink-500/40 p-6 rounded-2xl shadow-xl space-y-4">
                 <div class="flex justify-between items-center">
                     <h3 class="text-lg font-bold text-pink-400">Pannello Segreto Inserimento Notizie</h3>
@@ -311,7 +307,7 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-black/90 border-t border-zinc-800/80 py-6 mt-12 text-center text-xs text-gray-500">
+    <footer class="bg-black/95 border-t border-zinc-800 py-6 mt-12 text-center text-xs text-gray-500">
         <p>&copy; 2026 Basi Azotate FC. Tutti i diritti riservati. Pro Clubs Web App.</p>
     </footer>
 
@@ -319,7 +315,7 @@
     <script>
         const ADMIN_PASSWORD = "basi2026"; 
 
-        // Scorciatoia segreta: premi contemporaneamente CTRL + SHIFT + A per aprire il form nascosto delle notizie
+        // Scorciatoia segreta: CTRL + SHIFT + A per sbloccare il form notizie
         document.addEventListener('keydown', function(event) {
             if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 'a') {
                 event.preventDefault();
@@ -337,7 +333,6 @@
             document.getElementById('news-form-container').classList.add('hidden');
         }
 
-        // Tab Switching Logic
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('nav button').forEach(el => {
@@ -352,7 +347,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Save & Load Dynamic News via LocalStorage
         function saveNews() {
             const title = document.getElementById('news-title').value.trim();
             const image = document.getElementById('news-image').value.trim();
@@ -374,7 +368,6 @@
             savedNews.unshift(newArticle);
             localStorage.setItem('basi_azotate_news', JSON.stringify(savedNews));
 
-            // Reset form
             document.getElementById('news-title').value = '';
             document.getElementById('news-image').value = '';
             document.getElementById('news-body').value = '';
