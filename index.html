@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            background-color: #050505;
+            background-color: #030303;
             color: #f3f4f6;
             font-family: 'Inter', sans-serif;
-            background-image: linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.92)), url('sfondo.png');
+            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.95)), url('sfondo.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -24,7 +24,7 @@
 <body class="flex flex-col min-h-screen">
 
     <!-- HEADER / NAVIGATION -->
-    <header class="bg-black/90 backdrop-blur-md border-b border-pink-500/20 sticky top-0 z-50">
+    <header class="bg-black/95 backdrop-blur-md border-b border-pink-500/20 sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-4">
             
             <!-- Logo & Title -->
@@ -57,40 +57,43 @@
     </header>
 
     <!-- MAIN CONTAINER -->
-    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8">
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-10">
 
-        <!-- TAB HOME (Completamente ridisegnata, pulita e d'impatto con log.png) -->
-        <div id="home" class="tab-content active space-y-8">
-            <!-- Hero Section -->
-            <div class="relative rounded-3xl overflow-hidden border border-pink-500/30 bg-gradient-to-br from-zinc-900/90 via-zinc-950 to-pink-950/30 p-8 md:p-14 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
-                <div class="space-y-5 text-center md:text-left max-w-xl">
-                    <div class="inline-flex items-center gap-2 bg-pink-500/10 border border-pink-500/30 px-3.5 py-1.5 rounded-full text-pink-400 text-xs font-bold uppercase tracking-wider">
-                        <span class="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></span> Pro Clubs Next-Gen
-                    </div>
-                    <h2 class="text-4xl md:text-6xl font-black text-white tracking-tight uppercase italic">Basi Azotate <span class="text-pink-500">FC</span></h2>
-                    <p class="text-gray-300 text-sm md:text-base leading-relaxed">Spogliatoio unito, fame di vittorie e zero scuse. Questa è la casa ufficiale del nostro club su EA Sports FC. Guarda la rosa, segui le stats e vivi la leggenda con noi.</p>
-                    <div class="pt-2 flex flex-wrap justify-center md:justify-start gap-3">
-                        <button onclick="switchTab('stats')" class="bg-pink-600 hover:bg-pink-500 text-white font-bold px-6 py-3 rounded-xl transition-all shadow-lg shadow-pink-600/30 text-xs uppercase tracking-wider flex items-center gap-2">
-                            <i class="fas fa-chart-bar"></i> Voti & Stats
-                        </button>
-                        <button onclick="switchTab('rosa')" class="bg-zinc-800 hover:bg-zinc-700 text-white font-semibold px-6 py-3 rounded-xl border border-zinc-700 transition-all text-xs uppercase tracking-wider flex items-center gap-2">
-                            <i class="fas fa-users"></i> La Rosa Titolare
-                        </button>
+        <!-- TAB HOME (Completamente nuova e pulita) -->
+        <div id="home" class="tab-content active space-y-10">
+            
+            <!-- Hero Principale con Logo log.png in primo piano -->
+            <div class="text-center space-y-6 py-6">
+                <div class="inline-flex items-center gap-2 bg-pink-500/10 border border-pink-500/30 px-4 py-1.5 rounded-full text-pink-400 text-xs font-bold uppercase tracking-widest">
+                    <span class="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></span> EA Sports FC Pro Clubs · Next-Gen
+                </div>
+                
+                <div class="flex justify-center my-4">
+                    <div class="w-36 h-36 md:w-44 md:h-44 rounded-full border-4 border-pink-500/60 p-3 bg-black/80 shadow-[0_0_50px_rgba(236,72,153,0.4)] flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
+                        <img src="log.png" alt="Logo Basi Azotate FC" class="w-full h-full object-contain rounded-full">
                     </div>
                 </div>
 
-                <!-- Logo Centrale in evidenza con log.png -->
-                <div class="flex-shrink-0">
-                    <div class="w-56 h-56 md:w-64 md:h-64 rounded-3xl border-2 border-pink-500/50 p-4 bg-black/60 backdrop-blur-md shadow-[0_0_40px_rgba(236,72,153,0.3)] flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
-                        <img src="log.png" alt="Logo Basi Azotate FC" class="w-full h-full object-contain rounded-2xl">
-                    </div>
+                <h2 class="text-4xl md:text-7xl font-black text-white tracking-tight uppercase italic">Basi Azotate <span class="text-pink-500">FC</span></h2>
+                <p class="text-gray-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+                    Spogliatoio unito, fame di vittorie e zero scuse. La casa ufficiale della nostra squadra sui campi virtuali.
+                </p>
+
+                <!-- Bottoni Rapidi -->
+                <div class="flex flex-wrap justify-center gap-4 pt-2">
+                    <button onclick="switchTab('stats')" class="bg-pink-600 hover:bg-pink-500 text-white font-bold px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-pink-600/30 text-xs uppercase tracking-wider flex items-center gap-2">
+                        <i class="fas fa-chart-bar"></i> Voti & Statistiche
+                    </button>
+                    <button onclick="switchTab('rosa')" class="bg-zinc-900 hover:bg-zinc-800 text-white font-semibold px-8 py-3.5 rounded-xl border border-zinc-800 transition-all text-xs uppercase tracking-wider flex items-center gap-2">
+                        <i class="fas fa-users"></i> La Rosa Titolare
+                    </button>
                 </div>
             </div>
 
-            <!-- Social Quick Links Banner -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <a href="https://www.instagram.com/basi_azotate_fc/?__pwa=1" target="_blank" class="group bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 p-6 rounded-2xl transition-all shadow-lg flex items-center gap-5">
-                    <div class="w-14 h-14 rounded-xl bg-pink-600/10 border border-pink-500/30 flex items-center justify-center text-pink-500 text-2xl group-hover:scale-110 transition-transform">
+            <!-- Sezione Social Ufficiali -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 pt-4">
+                <a href="https://www.instagram.com/basi_azotate_fc/?__pwa=1" target="_blank" class="group bg-zinc-900/70 border border-zinc-800 hover:border-pink-500/50 p-6 rounded-2xl transition-all shadow-xl flex items-center gap-5 backdrop-blur-sm">
+                    <div class="w-14 h-14 rounded-2xl bg-pink-600/10 border border-pink-500/30 flex items-center justify-center text-pink-500 text-2xl group-hover:scale-110 transition-transform">
                         <i class="fab fa-instagram"></i>
                     </div>
                     <div>
@@ -99,8 +102,8 @@
                     </div>
                 </a>
 
-                <a href="https://www.tiktok.com/@basi.azotate.fc" target="_blank" class="group bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 p-6 rounded-2xl transition-all shadow-lg flex items-center gap-5">
-                    <div class="w-14 h-14 rounded-xl bg-pink-600/10 border border-pink-500/30 flex items-center justify-center text-pink-500 text-2xl group-hover:scale-110 transition-transform">
+                <a href="https://www.tiktok.com/@basi.azotate.fc" target="_blank" class="group bg-zinc-900/70 border border-zinc-800 hover:border-pink-500/50 p-6 rounded-2xl transition-all shadow-xl flex items-center gap-5 backdrop-blur-sm">
+                    <div class="w-14 h-14 rounded-2xl bg-pink-600/10 border border-pink-500/30 flex items-center justify-center text-pink-500 text-2xl group-hover:scale-110 transition-transform">
                         <i class="fab fa-tiktok"></i>
                     </div>
                     <div>
