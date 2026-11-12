@@ -33,7 +33,7 @@
             
             <!-- Logo & Title -->
             <div class="flex items-center gap-3">
-                <img src="log.png" alt="Logo Basi Azotate FC" class="w-12 h-12 object-contain rounded-full border-2 border-pink-500 shadow-[0_0_15px_rgba(236,72,153,0.4)]">
+                <img src="logo.png" alt="Logo Basi Azotate FC" class="w-12 h-12 object-contain rounded-full border-2 border-pink-500 shadow-[0_0_15px_rgba(236,72,153,0.4)]">
                 <div>
                     <h1 class="text-xl font-black tracking-wider text-white uppercase italic">Basi Azotate <span class="text-pink-500">FC</span></h1>
                     <p class="text-xs text-gray-400">Official Pro Clubs Team</p>
@@ -65,7 +65,6 @@
 
         <!-- TAB HOME -->
         <div id="home" class="tab-content active space-y-8 animate-fade">
-            <!-- Hero Section -->
             <div class="relative rounded-3xl overflow-hidden border border-pink-500/30 bg-gradient-to-r from-zinc-900 via-zinc-900/90 to-pink-950/40 p-8 md:p-12 shadow-2xl">
                 <div class="relative z-10 max-w-2xl">
                     <span class="bg-pink-500/20 text-pink-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-pink-500/30">Stagione Attiva</span>
@@ -78,7 +77,6 @@
                 </div>
             </div>
 
-            <!-- Quick Stats Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="bg-zinc-900/80 border border-zinc-800 p-6 rounded-2xl backdrop-blur-sm">
                     <div class="text-pink-500 font-bold text-sm tracking-wider uppercase mb-1">Identità Club</div>
@@ -117,13 +115,31 @@
         <!-- TAB ROSA -->
         <div id="rosa" class="tab-content space-y-6">
             <div class="flex justify-between items-center">
-                <h2 class="text-2xl font-bold text-white tracking-tight">La Rosa dei Titolari</h2>
+                <h2 class="text-2xl font-bold text-white tracking-tight">La Rosa & Staff</h2>
                 <span class="text-xs text-zinc-400 bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-full">Stagione 2026</span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
-                <!-- Player Card 1 -->
+                <!-- PROF UGO (Allenatore) -->
+                <div class="bg-zinc-900/80 border border-pink-500/50 hover:border-pink-500 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
+                    <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
+                        <img src="prof.png" alt="PROF UGO" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 right-3 bg-pink-600 text-white text-xs font-bold px-2.5 py-1 rounded-lg border border-pink-500/30">COACH</span>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between">
+                        <div>
+                            <h3 class="text-lg font-black text-white">PROF UGO</h3>
+                            <p class="text-xs text-pink-500 font-semibold tracking-wider uppercase mt-0.5">Allenatore</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-zinc-800 flex justify-between text-sm">
+                            <span class="text-gray-400">Ruolo</span>
+                            <span class="font-bold text-pink-400">Mister</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HELLO TIKKI -->
                 <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
                     <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
                         <img src="tikki.png" alt="HELLO TIKKI" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
@@ -141,7 +157,7 @@
                     </div>
                 </div>
 
-                <!-- Player Card 2 -->
+                <!-- SAY WALLAHI -->
                 <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
                     <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
                         <img src="wallahi.png" alt="SAY WALLAHI" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
@@ -159,7 +175,7 @@
                     </div>
                 </div>
 
-                <!-- Player Card 3 -->
+                <!-- MEPIAC LUCAZZ -->
                 <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
                     <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
                         <img src="mep.png" alt="MEPIAC LUCAZZ" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
@@ -177,7 +193,7 @@
                     </div>
                 </div>
 
-                <!-- Player Card 4 -->
+                <!-- PASQUALE TORTELLONI -->
                 <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
                     <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
                         <img src="pasquale.png" alt="PASQUALE TORTELLONI" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
@@ -195,7 +211,7 @@
                     </div>
                 </div>
 
-                <!-- Player Card 5 -->
+                <!-- THOMAS MAITURBATO -->
                 <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
                     <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
                         <img src="mai.png" alt="THOMAS MAITURBATO" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
@@ -213,7 +229,7 @@
                     </div>
                 </div>
 
-                <!-- Player Card 6 -->
+                <!-- CAPO CRIBIO -->
                 <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
                     <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
                         <img src="cribio.png" alt="CAPO CRIBIO" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
@@ -241,22 +257,26 @@
                     <h2 class="text-2xl font-bold text-white">Ultime Notizie & Comunicati</h2>
                     <p class="text-sm text-gray-400">Aggiornamenti dal campo, mercato e spogliatoio.</p>
                 </div>
-                <button onclick="toggleNewsForm()" class="bg-pink-600 hover:bg-pink-500 text-white font-semibold px-4 py-2 rounded-xl text-sm transition-all shadow-md flex items-center gap-2">
-                    <i class="fas fa-plus"><b>Aggiungi Articolo</b></i>
+                <!-- Pulsante protetto da password -->
+                <button onclick="requestAdminAccess()" id="btn-admin-access" class="bg-zinc-800 hover:bg-zinc-700 text-gray-300 font-semibold px-4 py-2 rounded-xl text-sm transition-all border border-zinc-700 flex items-center gap-2">
+                    <i class="fas fa-lock"></i> <span>Area Admin</span>
                 </button>
             </div>
 
-            <!-- News Input Form (Hidden by default) -->
+            <!-- News Input Form ( nascosto di default ) -->
             <div id="news-form-container" class="hidden bg-zinc-900 border border-pink-500/40 p-6 rounded-2xl shadow-xl space-y-4">
-                <h3 class="text-lg font-bold text-white">Scrivi una nuova notizia</h3>
+                <div class="flex justify-between items-center">
+                    <h3 class="text-lg font-bold text-white">Scrivi una nuova notizia (Modalità Admin)</h3>
+                    <button onclick="logoutAdmin()" class="text-xs text-pink-400 hover:underline">Esci da Admin</button>
+                </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Titolo dell'articolo</label>
                         <input type="text" id="news-title" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-pink-500 text-sm" placeholder="Es. Grande vittoria nel derby!">
                     </div>
                     <div>
-                        <label class="block text-xs text-gray-400 mb-1">URL Immagine (es. link foto o nome file)</label>
-                        <input type="text" id="news-image" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-pink-500 text-sm" placeholder="Es. https://... o foto.png">
+                        <label class="block text-xs text-gray-400 mb-1">URL Immagine (o nome file es. foto.png)</label>
+                        <input type="text" id="news-image" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-pink-500 text-sm" placeholder="Es. logo.png o link esterno">
                     </div>
                 </div>
                 <div>
@@ -264,27 +284,13 @@
                     <textarea id="news-body" rows="4" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-pink-500 text-sm" placeholder="Scrivi qui il contenuto completo dell'articolo..."></textarea>
                 </div>
                 <div class="flex justify-end gap-3">
-                    <button onclick="toggleNewsForm()" class="px-4 py-2 rounded-xl bg-zinc-800 text-gray-300 text-sm font-semibold hover:bg-zinc-700">Annulla</button>
-                    <button onclick="saveNews()" class="px-6 py-2 rounded-xl bg-pink-600 text-white text-sm font-bold hover:bg-pink-500 shadow-md">Pubblica</button>
+                    <button onclick="saveNews()" class="px-6 py-2 rounded-xl bg-pink-600 text-white text-sm font-bold hover:bg-pink-500 shadow-md">Pubblica Articolo</button>
                 </div>
             </div>
 
             <!-- News Feed Grid -->
             <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Default Sample News Item -->
-                <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl overflow-hidden shadow-xl flex flex-col">
-                    <div class="h-48 bg-zinc-950 overflow-hidden relative">
-                        <img src="logo.png" alt="News preview" class="w-full h-full object-cover opacity-80">
-                        <span class="absolute top-3 left-3 bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full">Ufficiale</span>
-                    </div>
-                    <div class="p-6 flex flex-col flex-grow justify-between space-y-3">
-                        <div>
-                            <span class="text-xs text-gray-400">12 Novembre 2026</span>
-                            <h3 class="text-xl font-bold text-white mt-1">Pronti per la nuova stagione!</h3>
-                            <p class="text-gray-300 text-sm mt-2 leading-relaxed">I Basi Azotate FC sono ufficialmente carichi e pronti a scendere in campo per conquistare la vetta della classifica. Seguiteci su tutti i canali social!</p>
-                        </div>
-                    </div>
-                </div>
+                <!-- Verrà popolato dinamicamente o mostrerà un messaggio vuoto -->
             </div>
         </div>
 
@@ -297,6 +303,25 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
+        // Password segreta per sbloccare l'inserimento notizie (puoi cambiarla qui sotto)
+        const ADMIN_PASSWORD = "basi2026"; 
+
+        function requestAdminAccess() {
+            const pwd = prompt("Inserisci la password admin per aggiungere notizie:");
+            if (pwd === ADMIN_PASSWORD) {
+                document.getElementById('news-form-container').classList.remove('hidden');
+                document.getElementById('btn-admin-access').style.display = 'none';
+                alert("Accesso admin riuscito!");
+            } else if (pwd !== null) {
+                alert("Password errata!");
+            }
+        }
+
+        function logoutAdmin() {
+            document.getElementById('news-form-container').classList.add('hidden');
+            document.getElementById('btn-admin-access').style.display = 'flex';
+        }
+
         // Tab Switching Logic
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -310,12 +335,6 @@
             activeBtn.classList.remove('text-zinc-400', 'hover:text-white', 'hover:bg-zinc-800');
             activeBtn.classList.add('bg-pink-500', 'text-white', 'shadow-md');
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Toggle News Input Form
-        function toggleNewsForm() {
-            const form = document.getElementById('news-form-container');
-            form.classList.toggle('hidden');
         }
 
         // Save & Load Dynamic News via LocalStorage
@@ -344,35 +363,28 @@
             document.getElementById('news-title').value = '';
             document.getElementById('news-image').value = '';
             document.getElementById('news-body').value = '';
-            toggleNewsForm();
-
+            
             loadNews();
+            alert("Notizia pubblicata con successo!");
         }
 
         function loadNews() {
             const container = document.getElementById('news-container');
             let savedNews = JSON.parse(localStorage.getItem('basi_azotate_news') || '[]');
 
-            // Default static article if none in storage
-            let html = `
-                <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl overflow-hidden shadow-xl flex flex-col">
-                    <div class="h-48 bg-zinc-950 overflow-hidden relative">
-                        <img src="logo.png" alt="News preview" class="w-full h-full object-cover opacity-80">
-                        <span class="absolute top-3 left-3 bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full">Ufficiale</span>
+            if (savedNews.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 bg-zinc-900/40 border border-zinc-800 rounded-2xl">
+                        <p class="text-zinc-500 text-sm">Nessuna notizia pubblicata al momento. Usa il tasto Area Admin in alto per inserire la prima notizia.</p>
                     </div>
-                    <div class="p-6 flex flex-col flex-grow justify-between space-y-3">
-                        <div>
-                            <span class="text-xs text-gray-400">12 Novembre 2026</span>
-                            <h3 class="text-xl font-bold text-white mt-1">Pronti per la nuova stagione!</h3>
-                            <p class="text-gray-300 text-sm mt-2 leading-relaxed">I Basi Azotate FC sono ufficialmente carichi e pronti a scendere in campo per conquistare la vetta della classifica. Seguiteci su tutti i canali social!</p>
-                        </div>
-                    </div>
-                </div>
-            `;
+                `;
+                return;
+            }
 
-            savedNews.forEach(item => {
+            let html = '';
+            savedNews.forEach((item, index) => {
                 html += `
-                    <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl overflow-hidden shadow-xl flex flex-col">
+                    <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl overflow-hidden shadow-xl flex flex-col relative group">
                         <div class="h-48 bg-zinc-950 overflow-hidden relative">
                             <img src="${item.image}" alt="News image" class="w-full h-full object-cover opacity-90" onerror="this.src='logo.png'">
                             <span class="absolute top-3 left-3 bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full">News</span>
