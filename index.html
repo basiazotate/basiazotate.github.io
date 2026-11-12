@@ -59,10 +59,8 @@
     <!-- MAIN CONTAINER -->
     <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-10">
 
-        <!-- TAB HOME (Completamente nuova e pulita) -->
+        <!-- TAB HOME -->
         <div id="home" class="tab-content active space-y-10">
-            
-            <!-- Hero Principale con Logo log.png in primo piano -->
             <div class="text-center space-y-6 py-6">
                 <div class="inline-flex items-center gap-2 bg-pink-500/10 border border-pink-500/30 px-4 py-1.5 rounded-full text-pink-400 text-xs font-bold uppercase tracking-widest">
                     <span class="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></span> EA Sports FC Pro Clubs · Next-Gen
@@ -79,7 +77,6 @@
                     Spogliatoio unito, fame di vittorie e zero scuse. La casa ufficiale della nostra squadra sui campi virtuali.
                 </p>
 
-                <!-- Bottoni Rapidi -->
                 <div class="flex flex-wrap justify-center gap-4 pt-2">
                     <button onclick="switchTab('stats')" class="bg-pink-600 hover:bg-pink-500 text-white font-bold px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-pink-600/30 text-xs uppercase tracking-wider flex items-center gap-2">
                         <i class="fas fa-chart-bar"></i> Voti & Statistiche
@@ -90,7 +87,6 @@
                 </div>
             </div>
 
-            <!-- Sezione Social Ufficiali -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 pt-4">
                 <a href="https://www.instagram.com/basi_azotate_fc/?__pwa=1" target="_blank" class="group bg-zinc-900/70 border border-zinc-800 hover:border-pink-500/50 p-6 rounded-2xl transition-all shadow-xl flex items-center gap-5 backdrop-blur-sm">
                     <div class="w-14 h-14 rounded-2xl bg-pink-600/10 border border-pink-500/30 flex items-center justify-center text-pink-500 text-2xl group-hover:scale-110 transition-transform">
@@ -302,13 +298,30 @@
                 </div>
             </div>
 
-            <!-- News Feed Grid -->
+            <!-- News Feed Grid (Anteprime) -->
             <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Verrà popolato dinamicamente -->
             </div>
         </div>
 
     </main>
+
+    <!-- MODALE LETTURA ARTICOLO COMPLETO -->
+    <div id="news-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-zinc-900 border border-zinc-800 max-w-2xl w-full rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+            <div id="modal-image-container" class="h-64 bg-zinc-950 relative">
+                <img id="modal-img" src="" alt="News" class="w-full h-full object-cover" onerror="this.src='log.png'">
+                <button onclick="closeNewsModal()" class="absolute top-4 right-4 w-9 h-9 bg-black/70 hover:bg-black text-white rounded-full flex items-center justify-center backdrop-blur-md transition-all">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-6 md:p-8 overflow-y-auto space-y-4">
+                <span id="modal-date" class="text-xs text-pink-500 font-semibold"></span>
+                <h2 id="modal-title" class="text-2xl md:text-3xl font-black text-white"></h2>
+                <div id="modal-body" class="text-gray-300 text-sm md:text-base leading-relaxed whitespace-pre-line pt-2"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- FOOTER -->
     <footer class="bg-black/95 border-t border-zinc-800 py-6 mt-12 text-center text-xs text-gray-500">
@@ -318,6 +331,7 @@
     <!-- JAVASCRIPT LOGIC -->
     <script>
         const ADMIN_PASSWORD = "basi2026"; 
+        let isAdminLoggedIn = false;
 
         // Scorciatoia segreta: CTRL + SHIFT + A per sbloccare il form notizie
         document.addEventListener('keydown', function(event) {
@@ -325,7 +339,9 @@
                 event.preventDefault();
                 const pwd = prompt("Inserisci la password amministratore:");
                 if (pwd === ADMIN_PASSWORD) {
+                    isAdminLoggedIn = true;
                     document.getElementById('news-form-container').classList.remove('hidden');
+                    loadNews(); // Ricarica per mostrare i tasti elimina
                     alert("Pannello notizie sbloccato con successo!");
                 } else if (pwd !== null) {
                     alert("Password errata!");
@@ -362,6 +378,7 @@
             }
 
             const newArticle = {
+                id: Date.now(),
                 title,
                 image: image || 'log.png',
                 body,
@@ -381,6 +398,15 @@
             alert("Notizia pubblicata con successo!");
         }
 
+        function deleteNews(id) {
+            if (confirm("Sei sicuro di voler eliminare questo articolo?")) {
+                let savedNews = JSON.parse(localStorage.getItem('basi_azotate_news') || '[]');
+                savedNews = savedNews.filter(item => item.id !== id);
+                localStorage.setItem('basi_azotate_news', JSON.stringify(savedNews));
+                loadNews();
+            }
+        }
+
         function loadNews() {
             const container = document.getElementById('news-container');
             let savedNews = JSON.parse(localStorage.getItem('basi_azotate_news') || '[]');
@@ -396,18 +422,30 @@
 
             let html = '';
             savedNews.forEach((item) => {
+                // Gestione id di fallback per vecchi articoli salvati senza ID
+                const itemId = item.id || item.date + item.title.substring(0, 5);
+                
+                // Troncamento del testo per l'anteprima
+                const shortBody = item.body.length > 120 ? item.body.substring(0, 120) + '...' : item.body;
+
                 html += `
-                    <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl overflow-hidden shadow-xl flex flex-col">
-                        <div class="h-48 bg-zinc-950 overflow-hidden relative">
-                            <img src="${item.image}" alt="News image" class="w-full h-full object-cover opacity-90" onerror="this.src='log.png'">
-                            <span class="absolute top-3 left-3 bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full">News</span>
-                        </div>
-                        <div class="p-6 flex flex-col flex-grow justify-between space-y-3">
-                            <div>
-                                <span class="text-xs text-gray-400">${item.date}</span>
-                                <h3 class="text-xl font-bold text-white mt-1">${item.title}</h3>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed whitespace-pre-line">${item.body}</p>
+                    <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/40 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between transition-all">
+                        <div>
+                            <div class="h-48 bg-zinc-950 overflow-hidden relative cursor-pointer" onclick="openNewsModal(${JSON.stringify(item).replace(/"/g, '&quot;')})">
+                                <img src="${item.image}" alt="News image" class="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-500" onerror="this.src='log.png'">
+                                <span class="absolute top-3 left-3 bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full">News</span>
                             </div>
+                            <div class="p-6 space-y-2">
+                                <span class="text-xs text-gray-400">${item.date}</span>
+                                <h3 class="text-xl font-bold text-white hover:text-pink-400 cursor-pointer transition-colors" onclick="openNewsModal(${JSON.stringify(item).replace(/"/g, '&quot;')})">${item.title}</h3>
+                                <p class="text-gray-300 text-sm leading-relaxed">${shortBody}</p>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 flex items-center justify-between mt-4">
+                            <button onclick="openNewsModal(${JSON.stringify(item).replace(/"/g, '&quot;')})" class="text-xs font-bold text-pink-400 hover:text-pink-300 uppercase tracking-wider">
+                                Leggi tutto &rarr;
+                            </button>
+                            ${isAdminLoggedIn ? `<button onclick="deleteNews(${item.id || '\'' + itemId + '\''})" class="bg-red-600/20 border border-red-500/40 text-red-400 hover:bg-red-600 hover:text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-all"><i class="fas fa-trash"></i> Elimina</button>` : ''}
                         </div>
                     </div>
                 `;
@@ -415,6 +453,25 @@
 
             container.innerHTML = html;
         }
+
+        function openNewsModal(item) {
+            document.getElementById('modal-img').src = item.image || 'log.png';
+            document.getElementById('modal-date').innerText = item.date;
+            document.getElementById('modal-title').innerText = item.title;
+            document.getElementById('modal-body').innerText = item.body;
+            document.getElementById('news-modal').classList.remove('hidden');
+        }
+
+        function closeNewsModal() {
+            document.getElementById('news-modal').classList.add('hidden');
+        }
+
+        // Chiusura modale cliccando fuori
+        document.getElementById('news-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeNewsModal();
+            }
+        });
 
         window.onload = loadNews;
     </script>
