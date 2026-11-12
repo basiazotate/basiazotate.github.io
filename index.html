@@ -3,1160 +3,396 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Last Stand - Survival Zombie Server</title>
-    <link rel="icon" type="image/png" href="logo.png">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- Libreria Leaflet per Mappe Interattive -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
+    <title>Basi Azotate FC - Pro Clubs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --bg-dark: #0a0808;
-            --bg-card: rgba(22, 16, 16, 0.88);
-            --bg-card-border: rgba(255, 46, 46, 0.35);
-            --primary-red: #ff2e2e;
-            --primary-red-hover: #d61c1c;
-            --accent-orange: #ff6b2b;
-            --text-gold: #f1c40f;
-            --discord-blue: #5865F2;
-            --text-light: #f0f4f8;
-            --text-muted: #a0aec0;
-            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.85);
-            --font-title: 'Montserrat', sans-serif;
-            --font-body: 'Inter', sans-serif;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: var(--font-body);
-        }
-
         body {
-            background: linear-gradient(180deg, rgba(10, 8, 8, 0.85) 0%, rgba(10, 8, 8, 0.95) 100%), 
-                        url('sfondo.jpg') no-repeat center center fixed;
+            background-color: #0b0b0b;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.92)), url('sfondo.png');
             background-size: cover;
-            color: var(--text-light);
-            line-height: 1.6;
+            background-position: center;
+            background-attachment: fixed;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
-
-        /* Navbar */
-        .navbar {
-            background: rgba(12, 9, 9, 0.96);
-            border-bottom: 2px solid var(--primary-red);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(255, 46, 46, 0.15);
-        }
-
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-family: var(--font-title);
-            font-size: 1.2rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: #fff;
-            text-transform: uppercase;
-        }
-
-        .nav-logo {
-            height: 48px;
-            width: auto;
-            filter: drop-shadow(0 0 8px rgba(255, 46, 46, 0.6));
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 0.8rem;
-            list-style: none;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            padding: 0.5rem 0.9rem;
-            border-radius: 6px;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: #fff;
-            background: var(--primary-red);
-            box-shadow: 0 0 15px rgba(255, 46, 46, 0.5);
-        }
-
-        /* Discord Logo */
-        .nav-discord-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.2rem 0.5rem !important;
-            background: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
-        }
-
-        .nav-discord-logo svg {
-            width: 32px;
-            height: 32px;
-            fill: var(--discord-blue);
-            transition: transform 0.3s ease, fill 0.3s ease, filter 0.3s ease;
-        }
-
-        .nav-discord-logo:hover svg {
-            fill: #ffffff;
-            transform: scale(1.15);
-            filter: drop-shadow(0 0 8px var(--discord-blue));
-        }
-
-        .discord-icon {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        /* Container Principale */
-        .container {
-            max-width: 950px;
-            margin: 2.5rem auto;
-            padding: 0 1.5rem;
-            flex: 1;
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Card Glassmorphism */
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--bg-card-border);
-            border-radius: 16px;
-            padding: 2.5rem;
-            box-shadow: var(--glass-shadow);
-            backdrop-filter: blur(12px);
-            margin-bottom: 2rem;
-        }
-
-        .header-container {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .header-logo {
-            max-height: 140px;
-            margin-bottom: 1rem;
-            filter: drop-shadow(0 0 15px rgba(255, 46, 46, 0.5));
-        }
-
-        h1, h2, h3 {
-            font-family: var(--font-title);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        .header-container h1 {
-            color: #fff;
-            font-size: 2.2rem;
-            margin-bottom: 0.3rem;
-            text-shadow: 0 0 10px rgba(255, 46, 46, 0.3);
-        }
-
-        .header-container p {
-            color: var(--accent-orange);
-            font-weight: 700;
-            letter-spacing: 2px;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-        }
-
-        /* User Info & Form */
-        .user-info {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 12px 18px;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(255, 46, 46, 0.2);
-        }
-
-        .user-profile-meta {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .user-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            border: 2px solid var(--primary-red);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--text-light);
-            font-size: 0.95rem;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 0.85rem 1rem;
-            background: rgba(10, 8, 8, 0.85);
-            border: 1px solid rgba(255, 46, 46, 0.25);
-            border-radius: 8px;
-            color: #fff;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary-red);
-            box-shadow: 0 0 12px rgba(255, 46, 46, 0.4);
-            background: rgba(10, 8, 8, 0.98);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        /* Pulsanti */
-        .btn {
-            width: 100%;
-            padding: 1rem;
-            background: var(--primary-red);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            font-family: var(--font-title);
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 46, 46, 0.4);
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            text-transform: uppercase;
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            background: var(--primary-red-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 46, 46, 0.6);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: none;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
-        }
-
-        .btn-discord {
-            background: var(--discord-blue);
-            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
-        }
-
-        .btn-discord:hover {
-            background: #4752C4;
-            box-shadow: 0 6px 20px rgba(88, 101, 242, 0.6);
-        }
-
-        .btn-logout {
-            background: #e74c3c;
-            padding: 0.5rem 0.9rem;
-            font-size: 0.85rem;
-            width: auto;
-            box-shadow: none;
-        }
-
-        .btn-logout:hover {
-            background: #c0392b;
-            box-shadow: 0 2px 10px rgba(231, 76, 60, 0.4);
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .form-actions button {
-            flex: 1;
-        }
-
-        /* Lore Styles */
-        .lore-box {
-            background: rgba(0, 0, 0, 0.4);
-            border-left: 4px solid var(--primary-red);
-            padding: 1.5rem;
-            border-radius: 0 8px 8px 0;
-            margin-bottom: 1.5rem;
-        }
-
-        .lore-quote {
-            font-style: italic;
-            font-weight: bold;
-            color: var(--accent-orange);
-            font-size: 1.1rem;
-            margin: 1.2rem 0;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-
-        .rules-list {
-            list-style: none;
-        }
-
-        .rules-list li {
-            position: relative;
-            padding-left: 30px;
-            margin-bottom: 1.2rem;
-            color: #e2e8f0;
-        }
-
-        .rules-list li::before {
-            content: "💀";
-            position: absolute;
-            left: 0;
-            font-size: 0.9rem;
-        }
-
-        .status-message {
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            display: none;
-            font-weight: 600;
-            text-align: center;
-        }
-
-        .status-success {
-            background: rgba(46, 204, 113, 0.2);
-            border: 1px solid #2ecc71;
-            color: #2ecc71;
-        }
-
-        .status-error {
-            background: rgba(231, 76, 60, 0.2);
-            border: 1px solid #e74c3c;
-            color: #e74c3c;
-        }
-
-        footer {
-            text-align: center;
-            padding: 1.5rem;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            background: rgba(10, 8, 8, 0.98);
-            border-top: 1px solid rgba(255, 46, 46, 0.2);
-            margin-top: auto;
-        }
-
-        @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            .nav-links {
-                width: 100%;
-                justify-content: center;
-            }
-            .card {
-                padding: 1.5rem;
-            }
-            .user-info {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: flex-start;
-            }
-        }
+        .border-pink { border-color: #ec4899; }
+        .text-pink-custom { color: #ec4899; }
+        .bg-pink-custom { background-color: #ec4899; }
+        .bg-pink-custom:hover { background-color: #db2777; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
     </style>
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
 
-    <!-- NAVIGAZIONE -->
-    <nav class="navbar">
-        <div class="nav-brand">
-            <img src="logo.png" alt="Logo The Last Stand" class="nav-logo">
-            <span>The Last Stand</span>
-        </div>
-        <ul class="nav-links">
-            <li><a href="#" onclick="showTab('home')" id="nav-home" class="active">Home</a></li>
-            <li><a href="#" onclick="showTab('lore')" id="nav-lore">Lore</a></li>
-            <li><a href="#" onclick="showTab('whitelist')" id="nav-whitelist">Whitelist</a></li>
-            <li><a href="#" onclick="showTab('candidatura')" id="nav-candidatura">Candidatura Staff</a></li>
-            <li><a href="#" onclick="showTab('staff')" id="nav-staff">Staff & Contatti</a></li>
-            <li><a href="#" onclick="showTab('mappa')" id="nav-mappa">Mappa</a></li>
-            <li><a href="#" onclick="showTab('regolamento')" id="nav-regolamento">Regolamento</a></li>
-            <!-- LOGO DISCORD -->
-            <li>
-                <a href="https://discord.gg/75m3eZtsfj" target="_blank" class="nav-discord-logo" title="Unisciti al Server Discord">
-                    <svg viewBox="0 0 127.14 96.36">
-                        <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-18.91-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,45.92,53.86,53,48.81,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,45.92,96.09,53,91.08,65.69,84.69,65.69Z"/>
-                    </svg>
+    <!-- HEADER / NAVIGATION -->
+    <header class="bg-black/80 backdrop-blur-md border-b border-pink-500/30 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-4">
+            
+            <!-- Logo & Title -->
+            <div class="flex items-center gap-3">
+                <img src="logo.png" alt="Logo Basi Azotate FC" class="w-12 h-12 object-contain rounded-full border-2 border-pink-500 shadow-[0_0_15px_rgba(236,72,153,0.4)]">
+                <div>
+                    <h1 class="text-xl font-black tracking-wider text-white uppercase italic">Basi Azotate <span class="text-pink-500">FC</span></h1>
+                    <p class="text-xs text-gray-400">Official Pro Clubs Team</p>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <nav class="flex flex-wrap justify-center gap-2 bg-zinc-900/80 p-1.5 rounded-xl border border-zinc-800">
+                <button onclick="switchTab('home')" id="btn-home" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-pink-500 text-white shadow-md">Home</button>
+                <button onclick="switchTab('stats')" id="btn-stats" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all text-zinc-400 hover:text-white hover:bg-zinc-800">Stats</button>
+                <button onclick="switchTab('rosa')" id="btn-rosa" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all text-zinc-400 hover:text-white hover:bg-zinc-800">Rosa</button>
+                <button onclick="switchTab('notizie')" id="btn-notizie" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all text-zinc-400 hover:text-white hover:bg-zinc-800">Notizie</button>
+            </nav>
+
+            <!-- Social Links -->
+            <div class="flex items-center gap-3">
+                <a href="https://www.instagram.com/basi_azotate_fc/?__pwa=1" target="_blank" class="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 hover:text-pink-500 hover:border-pink-500 transition-all">
+                    <i class="fab fa-instagram"></i>
                 </a>
-            </li>
-        </ul>
-    </nav>
+                <a href="https://www.tiktok.com/@basi.azotate.fc" target="_blank" class="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 hover:text-pink-500 hover:border-pink-500 transition-all">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+            </div>
+        </div>
+    </header>
 
-    <div class="container">
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8">
 
-        <!-- TAB 1: HOME -->
-        <div id="home" class="tab-content active">
-            <div class="card" style="text-align: center;">
-                <div class="header-container">
-                    <img src="logo.png" alt="Logo The Last Stand" class="header-logo">
-                    <h1>The Last Stand</h1>
-                    <p style="color: var(--primary-red); font-size: 1.2rem; font-weight: 800;">IP: TheLastStand1.aternos.me</p>
+        <!-- TAB HOME -->
+        <div id="home" class="tab-content active space-y-8 animate-fade">
+            <!-- Hero Section -->
+            <div class="relative rounded-3xl overflow-hidden border border-pink-500/30 bg-gradient-to-r from-zinc-900 via-zinc-900/90 to-pink-950/40 p-8 md:p-12 shadow-2xl">
+                <div class="relative z-10 max-w-2xl">
+                    <span class="bg-pink-500/20 text-pink-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-pink-500/30">Stagione Attiva</span>
+                    <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mt-4 mb-4 text-white">Benvenuti nella tana dei <span class="text-pink-500">Basi Azotate</span></h2>
+                    <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-6">Siamo pronti a dominare i campi virtuali di EA Sports FC Pro Clubs. Gioco di squadra, determinazione e tanta classe in ogni match.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="switchTab('stats')" class="bg-pink-600 hover:bg-pink-500 text-white font-bold px-6 py-3 rounded-xl transition-all shadow-lg shadow-pink-600/30">Guarda le Statistiche</button>
+                        <button onclick="switchTab('rosa')" class="bg-zinc-800 hover:bg-zinc-700 text-white font-semibold px-6 py-3 rounded-xl border border-zinc-700 transition-all">Scopri la Rosa</button>
+                    </div>
                 </div>
-                <p style="font-size: 1.15rem; color: #cbd5e1; margin-bottom: 2rem;">
-                    Sopravvivi all'apocalisse zombie, esplora la metropoli in rovina e costruisci la tua roccaforte. Riuscirai a superare la notte?
-                </p>
-                
-                <!-- PULSANTI PRINCIPALI -->
-                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; max-width: 600px; margin: 0 auto;">
-                    <button class="btn" style="flex: 1; min-width: 220px;" onclick="showTab('whitelist')">Richiedi Whitelist</button>
-                    <button class="btn" style="flex: 1; min-width: 220px;" onclick="showTab('lore')">Leggi la Lore</button>
-                    <button class="btn" style="width: 100%; margin-top: 0.5rem;" onclick="showTab('regolamento')">Visualizza Regolamento</button>
+            </div>
+
+            <!-- Quick Stats Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-zinc-900/80 border border-zinc-800 p-6 rounded-2xl backdrop-blur-sm">
+                    <div class="text-pink-500 font-bold text-sm tracking-wider uppercase mb-1">Identità Club</div>
+                    <div class="text-2xl font-black text-white">Basi Azotate FC</div>
+                    <p class="text-xs text-gray-400 mt-2">Piattaforma Next-Gen Crossplay</p>
+                </div>
+                <div class="bg-zinc-900/80 border border-zinc-800 p-6 rounded-2xl backdrop-blur-sm">
+                    <div class="text-pink-500 font-bold text-sm tracking-wider uppercase mb-1">Canali Ufficiali</div>
+                    <div class="text-lg font-bold text-white flex gap-4 mt-1">
+                        <a href="https://www.instagram.com/basi_azotate_fc/?__pwa=1" target="_blank" class="hover:text-pink-500"><i class="fab fa-instagram"></i> Instagram</a>
+                        <a href="https://www.tiktok.com/@basi.azotate.fc" target="_blank" class="hover:text-pink-500"><i class="fab fa-tiktok"></i> TikTok</a>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">Seguici per clip e highlights</p>
+                </div>
+                <div class="bg-zinc-900/80 border border-zinc-800 p-6 rounded-2xl backdrop-blur-sm">
+                    <div class="text-pink-500 font-bold text-sm tracking-wider uppercase mb-1">Spirito di Squadra</div>
+                    <div class="text-2xl font-black text-white">#MaiDomani</div>
+                    <p class="text-xs text-gray-400 mt-2">Uniti verso la vittoria finale</p>
                 </div>
             </div>
         </div>
 
-        <!-- TAB 2: LORE DEL SERVER -->
-        <div id="lore" class="tab-content">
-            <div class="card">
-                <div class="header-container">
-                    <img src="logo.png" alt="Logo The Last Stand" class="header-logo">
-                    <h1>La Caduta di Blackwood</h1>
-                    <p>Cronache dell'Apocalisse — Estate 1994</p>
-                </div>
-
-                <div style="margin-top: 1.5rem; text-align: left;">
-                    
-                    <!-- CAPITOLO 1 -->
-                    <div style="border-left: 3px solid var(--primary-red); padding-left: 1rem; margin-bottom: 2rem; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 0 8px 8px 0;">
-                        <h3 style="color: var(--primary-red); font-size: 1.2rem; margin-bottom: 0.5rem; text-transform: uppercase;">1. Il Contagio del '94</h3>
-                        <p style="color: var(--text-light); font-size: 0.95rem; line-height: 1.7;">
-                            Niente computer o satelliti moderni. Negli Stati Uniti del 1994, la fine del mondo è arrivata attraverso l'acqua potabile contaminata da un esperimento militare segreto insabbiato dal Governo. In poche settimane le linee telefoniche sono morte, le autostrade sono state sbarrate dall'esercito e la civiltà è collassata nell'analogico.
-                        </p>
-                    </div>
-
-                    <!-- CAPITOLO 2 -->
-                    <div style="border-left: 3px solid var(--accent-orange); padding-left: 1rem; margin-bottom: 2rem; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 0 8px 8px 0;">
-                        <h3 style="color: var(--accent-orange); font-size: 1.2rem; margin-bottom: 0.5rem; text-transform: uppercase;">2. La Zona Rossa: Blackwood</h3>
-                        <p style="color: var(--text-light); font-size: 0.95rem; line-height: 1.7;">
-                            La cittadina di Blackwood è ora una trappola mortale circondata da vecchi motel fatiscenti, diner abbandonati e cabine telefoniche fuori uso. Senza elettricità stabile, i sopravvissuti devono lottare ogni giorno contro orde di infetti e la disperazione della fame.
-                        </p>
-                    </div>
-
-                    <!-- FAZIONI E RUOLI -->
-                    <h2 style="color: var(--text-light); font-size: 1.4rem; margin: 2rem 0 1rem 0; border-bottom: 1px solid var(--bg-card-border); padding-bottom: 0.5rem;">
-                        ⚖️ Chi Anima le Strade
-                    </h2>
-
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
-                        <!-- RUOLO 1 -->
-                        <div style="background: rgba(0,0,0,0.5); border: 1px solid var(--bg-card-border); border-radius: 8px; padding: 1rem;">
-                            <h4 style="color: var(--primary-red); margin-bottom: 0.5rem;">✊ La Resistenza</h4>
-                            <p style="color: var(--text-muted); font-size: 0.85rem;">Un gruppo organizzato che si unisce per difendere i propri rifugi, condividere le risorse e combattere l'oppressione di ciò che resta del vecchio regime.</p>
-                        </div>
-
-                        <!-- RUOLO 2 -->
-                        <div style="background: rgba(0,0,0,0.5); border: 1px solid var(--bg-card-border); border-radius: 8px; padding: 1rem;">
-                            <h4 style="color: var(--accent-orange); margin-bottom: 0.5rem;">🎒 I Vagabondi</h4>
-                            <p style="color: var(--text-muted); font-size: 0.85rem;">Cani sciolti e nomadi che viaggiano leggeri, senza legami fissi. Si affidano unicamente al proprio istinto e alla fortuna per superare un altro giorno a Blackwood.</p>
-                        </div>
-
-                        <!-- RUOLO 3 -->
-                        <div style="background: rgba(0,0,0,0.5); border: 1px solid var(--bg-card-border); border-radius: 8px; padding: 1rem;">
-                            <h4 style="color: var(--text-gold); margin-bottom: 0.5rem;">👮 I Federali</h4>
-                            <p style="color: var(--text-muted); font-size: 0.85rem;">Ex forze dell'ordine e agenti rimasti tagliati fuori dal mondo. Occupano barricate fortificate e pretendono disciplina e controllo su chiunque attraversi il loro territorio.</p>
-                        </div>
-                    </div>
-
-                    <!-- CHIAMATA ALL'AZIONE -->
-                    <div style="background: rgba(255, 46, 46, 0.15); border: 1px dashed var(--primary-red); border-radius: 8px; padding: 1.2rem; text-align: center;">
-                        <p style="color: var(--text-light); font-weight: 600; margin: 0;">
-                            Sintonizzati sulla frequenza radio di emergenza. Da che parte scriverai la tua storia in questo 1994 senza via d'uscita?
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB 3: RICHIESTA WHITELIST AMPLIATA -->
-        <div id="whitelist" class="tab-content">
-            <div class="card" style="max-width: 850px; width: 100%; margin: 0 auto;">
-                <div class="header-container">
-                    <img src="logo.png" alt="Logo The Last Stand" class="header-logo">
-                    <h1>Richiesta Whitelist</h1>
-                    <p>Compila il modulo per accedere al Server</p>
-                </div>
-
-                <div id="statusWhitelist" class="status-message"></div>
-
-                <!-- Login Discord -->
-                <div class="discordAuthSection">
-                    <p style="text-align: center; margin-bottom: 1.5rem; color: #a0aec0;">
-                        Autenticati con Discord per inviare la richiesta di inserimento in Whitelist.
-                    </p>
-                    <button class="btn btn-discord" onclick="loginWithDiscord('whitelist')">
-                        <svg class="discord-icon" viewBox="0 0 127.14 96.36">
-                            <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-18.91-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,45.92,53.86,53,48.81,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,45.92,96.09,53,91.08,65.69,84.69,65.69Z"/>
-                        </svg>
-                        Accedi con Discord
-                    </button>
-                </div>
-
-                <!-- Form Whitelist Strutturato in Sezioni -->
-                <form id="whitelistForm" class="auth-form" style="display: none;" onsubmit="sendWhitelist(event)">
-                    <div class="user-info">
-                        <div class="user-profile-meta">
-                            <img src="" alt="Avatar" class="userAvatar user-avatar">
-                            <div>
-                                <div class="userName" style="font-weight: 700; color: #fff;"></div>
-                                <div class="userId" style="font-size: 0.8rem; color: var(--text-muted);"></div>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-logout" onclick="logoutDiscord()">Esci / Logout</button>
-                    </div>
-
-                    <!-- SEZIONE 1: DATI PERSONAGGIO -->
-                    <div style="background: rgba(10, 8, 8, 0.6); border: 1px solid rgba(255, 46, 46, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1.2rem; border-bottom: 1px solid rgba(255, 46, 46, 0.2); padding-bottom: 0.8rem;">
-                            <span style="font-size: 1.3rem;">🪪</span>
-                            <div>
-                                <h3 style="font-size: 1rem; color: #fff; letter-spacing: 1px;">DATI ANAGRAFICI DEL PERSONAGGIO</h3>
-                                <span style="font-size: 0.75rem; color: var(--accent-orange); text-transform: uppercase; letter-spacing: 1px;">The Last Stand — Sezione 1</span>
-                            </div>
-                        </div>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                            <div class="form-group" style="margin-bottom: 0;">
-                                <label for="wlNomePg">NOME PERSONAGGIO *</label>
-                                <input type="text" id="wlNomePg" required placeholder="Es. Frank" oninput="saveDraft('whitelist')">
-                            </div>
-                            <div class="form-group" style="margin-bottom: 0;">
-                                <label for="wlCognomePg">COGNOME PERSONAGGIO *</label>
-                                <input type="text" id="wlCognomePg" required placeholder="Es. Castle" oninput="saveDraft('whitelist')">
-                            </div>
-                        </div>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <div class="form-group" style="margin-bottom: 0;">
-                                <label for="wlMcUsername">NICKNAME MINECRAFT (IGN) *</label>
-                                <input type="text" id="wlMcUsername" required placeholder="Es. Steve123" oninput="saveDraft('whitelist')">
-                            </div>
-                            <div class="form-group" style="margin-bottom: 0;">
-                                <label for="wlEta">ETÀ REALE *</label>
-                                <input type="number" id="wlEta" min="10" max="99" required placeholder="Es. 17" oninput="saveDraft('whitelist')">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- SEZIONE 2: LORE E APPROCCIO DI GIOCO -->
-                    <div style="background: rgba(10, 8, 8, 0.6); border: 1px solid rgba(255, 46, 46, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1.2rem; border-bottom: 1px solid rgba(255, 46, 46, 0.2); padding-bottom: 0.8rem;">
-                            <span style="font-size: 1.3rem;">📜</span>
-                            <div>
-                                <h3 style="font-size: 1rem; color: #fff; letter-spacing: 1px;">SOPRAVVIVENZA E LORE</h3>
-                                <span style="font-size: 0.75rem; color: var(--accent-orange); text-transform: uppercase; letter-spacing: 1px;">The Last Stand — Sezione 2</span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="wlStileGioco">FAZIONE O STILE DI VITA PREFERITO *</label>
-                            <select id="wlStileGioco" required onchange="saveDraft('whitelist')">
-                                <option value="">Seleziona fazione/stile...</option>
-                                <option value="Resistenza">La Resistenza (Difesa e Rifugi organizzati)</option>
-                                <option value="Vagabondi">I Vagabondi (Nomadi solitari / Looter)</option>
-                                <option value="Federali">I Federali (Ex forze dell'ordine / Controllo)</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="wlReazioneMorte">COME AFFRONTERESTI LA PERDITA DEI TUOI BENI O UNA RAPINA IN GAME? *</label>
-                            <textarea id="wlReazioneMorte" required placeholder="Descrivi il comportamento del tuo personaggio in situazioni di pericolo o sconfitta..." oninput="saveDraft('whitelist')"></textarea>
-                        </div>
-
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label for="wlLoreCheck">COSA COMPORTA L'ARRIVO DELLA "LUNA DI SANGUE" A BLACKWOOD? *</label>
-                            <textarea id="wlLoreCheck" required placeholder="Dimostra di conoscere le dinamiche dell'apocalisse di Blackwood..." oninput="saveDraft('whitelist')"></textarea>
-                        </div>
-                    </div>
-
-                    <!-- SEZIONE 3: REQUISITI TECNICI -->
-                    <div style="background: rgba(10, 8, 8, 0.6); border: 1px solid rgba(255, 46, 46, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1.2rem; border-bottom: 1px solid rgba(255, 46, 46, 0.2); padding-bottom: 0.8rem;">
-                            <span style="font-size: 1.3rem;">⚙️</span>
-                            <div>
-                                <h3 style="font-size: 1rem; color: #fff; letter-spacing: 1px;">REQUISITI TECNICI & INFO</h3>
-                                <span style="font-size: 0.75rem; color: var(--accent-orange); text-transform: uppercase; letter-spacing: 1px;">The Last Stand — Sezione 3</span>
-                            </div>
-                        </div>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                            <div class="form-group" style="margin-bottom: 0;">
-                                <label for="wlEsperienza">ANNI DI ESPERIENZA SU MINECRAFT *</label>
-                                <input type="text" id="wlEsperienza" required placeholder="Es. 3 anni" oninput="saveDraft('whitelist')">
-                            </div>
-                            <div class="form-group" style="margin-bottom: 0;">
-                                <label for="wlMicrofono">DISPONIBILITÀ VOCALE (DISCORD) *</label>
-                                <select id="wlMicrofono" required onchange="saveDraft('whitelist')">
-                                    <option value="">Seleziona...</option>
-                                    <option value="Sì, uso voce regolarmente">Sì, posso parlare</option>
-                                    <option value="Solo ascolto">Solo ascolto</option>
-                                    <option value="No, solo chat testuale">No, uso solo la chat scritta</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label for="wlComeHaiTrovato">COME HAI SCOPERTO IL SERVER? *</label>
-                            <textarea id="wlComeHaiTrovato" required placeholder="Raccontaci come sei venuto a conoscenza di The Last Stand..." style="min-height: 70px;" oninput="saveDraft('whitelist')"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" onclick="manualSaveMessage('whitelist')">💾 Salva Bozza</button>
-                        <button type="submit" id="submitWlBtn" class="btn">Invia Richiesta Whitelist</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <!-- TAB 4: CANDIDATURA STAFF -->
-        <div id="candidatura" class="tab-content">
-            <div class="card">
-                <div class="header-container">
-                    <img src="logo.png" alt="Logo The Last Stand" class="header-logo">
-                    <h1>Candidatura Staff</h1>
-                    <p>Unisciti al Team di The Last Stand</p>
-                </div>
-
-                <div id="statusMessage" class="status-message"></div>
-
-                <!-- Login Discord -->
-                <div class="discordAuthSection">
-                    <p style="text-align: center; margin-bottom: 1.5rem; color: #a0aec0;">
-                        Effettua il login con Discord per verificare la tua identità ed inviare la candidatura.
-                    </p>
-                    <button class="btn btn-discord" onclick="loginWithDiscord('candidatura')">
-                        <svg class="discord-icon" viewBox="0 0 127.14 96.36">
-                            <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-18.91-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,45.92,53.86,53,48.81,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,45.92,96.09,53,91.08,65.69,84.69,65.69Z"/>
-                        </svg>
-                        Accedi con Discord
-                    </button>
-                </div>
-
-                <!-- Form Candidatura Staff -->
-                <form id="applicationForm" class="auth-form" style="display: none;" onsubmit="sendApplication(event)">
-                    <div class="user-info">
-                        <div class="user-profile-meta">
-                            <img src="" alt="Avatar" class="userAvatar user-avatar">
-                            <div>
-                                <div class="userName" style="font-weight: 700; color: #fff;"></div>
-                                <div class="userId" style="font-size: 0.8rem; color: var(--text-muted);"></div>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-logout" onclick="logoutDiscord()">Esci / Logout</button>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="mcUsername">Nickname Minecraft (IGN):</label>
-                        <input type="text" id="mcUsername" required placeholder="Es. Player123" oninput="saveDraft('application')">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="etaOOC">Età Reale:</label>
-                        <input type="number" id="etaOOC" min="12" max="99" required placeholder="Es. 16" oninput="saveDraft('application')">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="ruolo">Ruolo per cui ti candidi:</label>
-                        <select id="ruolo" required onchange="saveDraft('application')">
-                            <option value="">Seleziona un ruolo...</option>
-                            <option value="Helper">Helper / Moderatore</option>
-                            <option value="Builder">Builder / Costruttore</option>
-                            <option value="Developer">Developer / Plugins</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="esperienze">Esperienze Passate:</label>
-                        <textarea id="esperienze" required placeholder="Elenca eventuali esperienze pregresse nello staff..." oninput="saveDraft('application')"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="motivazione">Perché vuoi far parte di The Last Stand?</label>
-                        <textarea id="motivazione" required placeholder="Spiega quali idee e contributo intendi portare nel server..." oninput="saveDraft('application')"></textarea>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" onclick="manualSaveMessage('application')">💾 Salva Bozza</button>
-                        <button type="submit" id="submitBtn" class="btn">Invia Candidatura Staff</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-    <!-- TAB 5: STAFF E CONTATTI -->
-        <div id="staff" class="tab-content">
-            <div class="card">
-                <div class="header-container">
-                    <img src="logo.png" alt="Logo The Last Stand" class="header-logo">
-                    <h1>Staff & Contatti</h1>
-                    <p>Il team di sopravvissuti a guardia di Blackwood</p>
-                </div>
-
-                <!-- INTRO / SUPPORTO -->
-                <div style="background: rgba(10, 8, 8, 0.6); border: 1px solid rgba(255, 46, 46, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; text-align: center;">
-                    <span style="font-size: 2rem;">🛡️</span>
-                    <h3 style="font-size: 1.1rem; color: #fff; letter-spacing: 1px; margin: 0.5rem 0;">HAI BISOGNO DI AIUTO O SUPPORTO?</h3>
-                    <p style="color: #a0aec0; font-size: 0.9rem; margin-bottom: 1.2rem;">
-                        Per qualsiasi problema tecnico, segnalazione di bug o dubbi sulla whitelist, entra nel nostro server Discord e apri un ticket. Il nostro staff ti risponderà il prima possibile.
-                    </p>
-                    <a href="https://discord.gg/75m3eZtsfj" target="_blank" class="btn btn-discord" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;">
-                        <svg class="discord-icon" viewBox="0 0 127.14 96.36" style="width: 20px; height: 20px; fill: currentColor;">
-                            <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-18.91-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,45.92,53.86,53,48.81,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,45.92,96.09,53,91.08,65.69,84.69,65.69Z"/>
-                        </svg>
-                        Unisciti al Discord Ufficiale
+        <!-- TAB STATS -->
+        <div id="stats" class="tab-content space-y-6">
+            <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-6 md:p-8 text-center space-y-4">
+                <h2 class="text-2xl font-bold text-white">Statistiche Live Pro Clubs</h2>
+                <p class="text-gray-400 max-w-xl mx-auto text-sm">Le statistiche ufficiali, il record e i dati aggiornati in tempo reale dal portale esterno.</p>
+                <div class="pt-4">
+                    <a href="https://proclubsfinder.com/club/squad?clubId=672823&clubName=Basi%20Azotate%20FC&platform=common-gen5" target="_blank" class="inline-flex items-center gap-3 bg-pink-600 hover:bg-pink-500 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-pink-600/30 text-base">
+                        <i class="fas fa-external-link-alt"></i> Apri Statistiche Complete su ProClubsFinder
                     </a>
                 </div>
+            </div>
+        </div>
 
-                <!-- LISTA RUOLI STAFF -->
-                <div style="background: rgba(10, 8, 8, 0.6); border: 1px solid rgba(255, 46, 46, 0.3); border-radius: 12px; padding: 1.5rem;">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1.2rem; border-bottom: 1px solid rgba(255, 46, 46, 0.2); padding-bottom: 0.8rem;">
-                        <span style="font-size: 1.3rem;">👑</span>
+        <!-- TAB ROSA -->
+        <div id="rosa" class="tab-content space-y-6">
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-white tracking-tight">La Rosa dei Titolari</h2>
+                <span class="text-xs text-zinc-400 bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-full">Stagione 2026</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Player Card 1 -->
+                <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
+                    <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
+                        <img src="tikki.png" alt="HELLO TIKKI" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-pink-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-pink-500/30">GK</span>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between">
                         <div>
-                            <h3 style="font-size: 1rem; color: #fff; letter-spacing: 1px;">GERARCHIA DI BLACKWOOD</h3>
-                            <span style="font-size: 0.75rem; color: var(--accent-orange); text-transform: uppercase; letter-spacing: 1px;">The Last Stand — Leadership</span>
+                            <h3 class="text-lg font-black text-white">HELLO TIKKI</h3>
+                            <p class="text-xs text-pink-500 font-semibold tracking-wider uppercase mt-0.5">Portiere</p>
                         </div>
-                    </div>
-
-                    <!-- Griglia Membri Staff (Solo Owner) -->
-                    <div style="display: flex; justify-content: center;">
-                        <div style="background: rgba(20, 15, 15, 0.85); border: 1px solid rgba(255, 46, 46, 0.4); border-radius: 12px; padding: 1.5rem; text-align: center; max-width: 300px; width: 100%; box-shadow: 0 4px 15px rgba(255, 46, 46, 0.2);">
-                            <img src="download (2).jpg" alt="ercirus" style="width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--primary-red); object-fit: cover; margin-bottom: 0.3rem; box-shadow: 0 0 10px rgba(255, 46, 46, 0.5);">
-                            <div style="font-weight: 700; color: #fff; font-size: 1.1rem; margin-bottom: 0.3rem;">ercirus</div>
-                            <div style="font-size: 0.8rem; color: #ecc94b; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;">Founder & Owner</div>
+                        <div class="mt-4 pt-3 border-t border-zinc-800 flex justify-between text-sm">
+                            <span class="text-gray-400">Altezza</span>
+                            <span class="font-bold text-white">197 cm</span>
                         </div>
                     </div>
                 </div>
+
+                <!-- Player Card 2 -->
+                <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
+                    <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
+                        <img src="wallahi.png" alt="SAY WALLAHI" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-pink-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-pink-500/30">CB</span>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between">
+                        <div>
+                            <h3 class="text-lg font-black text-white">SAY WALLAHI</h3>
+                            <p class="text-xs text-pink-500 font-semibold tracking-wider uppercase mt-0.5">Difensore Centrale</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-zinc-800 flex justify-between text-sm">
+                            <span class="text-gray-400">Altezza</span>
+                            <span class="font-bold text-white">188 cm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Player Card 3 -->
+                <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
+                    <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
+                        <img src="mep.png" alt="MEPIAC LUCAZZ" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-pink-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-pink-500/30">CM</span>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between">
+                        <div>
+                            <h3 class="text-lg font-black text-white">MEPIAC LUCAZZ</h3>
+                            <p class="text-xs text-pink-500 font-semibold tracking-wider uppercase mt-0.5">Centrocampista</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-zinc-800 flex justify-between text-sm">
+                            <span class="text-gray-400">Altezza</span>
+                            <span class="font-bold text-white">175 cm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Player Card 4 -->
+                <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
+                    <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
+                        <img src="pasquale.png" alt="PASQUALE TORTELLONI" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-pink-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-pink-500/30">CM</span>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between">
+                        <div>
+                            <h3 class="text-lg font-black text-white">PASQUALE TORTELLONI</h3>
+                            <p class="text-xs text-pink-500 font-semibold tracking-wider uppercase mt-0.5">Centrocampista</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-zinc-800 flex justify-between text-sm">
+                            <span class="text-gray-400">Altezza</span>
+                            <span class="font-bold text-white">181 cm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Player Card 5 -->
+                <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
+                    <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
+                        <img src="mai.png" alt="THOMAS MAITURBATO" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-pink-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-pink-500/30">ST</span>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between">
+                        <div>
+                            <h3 class="text-lg font-black text-white">THOMAS MAITURBATO</h3>
+                            <p class="text-xs text-pink-500 font-semibold tracking-wider uppercase mt-0.5">Attaccante</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-zinc-800 flex justify-between text-sm">
+                            <span class="text-gray-400">Altezza</span>
+                            <span class="font-bold text-white">175 cm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Player Card 6 -->
+                <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/50 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col">
+                    <div class="h-56 bg-zinc-950 flex items-center justify-center relative overflow-hidden">
+                        <img src="cribio.png" alt="CAPO CRIBIO" class="h-full w-full object-cover object-top opacity-90 hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-pink-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-pink-500/30">ST</span>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between">
+                        <div>
+                            <h3 class="text-lg font-black text-white">CAPO CRIBIO</h3>
+                            <p class="text-xs text-pink-500 font-semibold tracking-wider uppercase mt-0.5">Attaccante</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-zinc-800 flex justify-between text-sm">
+                            <span class="text-gray-400">Altezza</span>
+                            <span class="font-bold text-white">170 cm</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
-        <!-- TAB 6: MAPPA INTERATTIVA -->
-        <div id="mappa" class="tab-content">
-            <div class="card">
-                <div class="header-container">
-                    <img src="logo.png" alt="Logo The Last Stand" class="header-logo">
-                    <h1>Mappa Globale</h1>
-                    <p>Stato Rete Satellitare</p>
+        <!-- TAB NOTIZIE -->
+        <div id="notizie" class="tab-content space-y-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Ultime Notizie & Comunicati</h2>
+                    <p class="text-sm text-gray-400">Aggiornamenti dal campo, mercato e spogliatoio.</p>
                 </div>
-                
-                <!-- SCHERMATA SEGNALE ASSENTE STILE LORE -->
-                <div style="background: rgba(13, 9, 9, 0.9); border: 2px solid var(--primary-red); border-radius: 12px; padding: 3.5rem 1.5rem; text-align: center; margin-top: 1rem; box-shadow: 0 0 20px rgba(255, 46, 46, 0.15);">
-                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">📡❌</div>
-                    <h2 style="color: var(--primary-red); font-size: 1.8rem; margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 2px;">Rete Satellitare Offline</h2>
-                    <p style="color: #cbd5e1; font-size: 1rem; max-width: 550px; margin: 0 auto; line-height: 1.6; font-family: monospace;">
-                        [ SEGNALE INTERROTTO ]<br>
-                        I sistemi di rilevamento topografico non sono più operativi.<br><br>
-                        <span style="color: var(--accent-orange);">Nessuna mappa disponibile. Esplora la città a tuo rischio e pericolo.</span>
-                    </p>
+                <button onclick="toggleNewsForm()" class="bg-pink-600 hover:bg-pink-500 text-white font-semibold px-4 py-2 rounded-xl text-sm transition-all shadow-md flex items-center gap-2">
+                    <i class="fas fa-plus"><b>Aggiungi Articolo</b></i>
+                </button>
+            </div>
+
+            <!-- News Input Form (Hidden by default) -->
+            <div id="news-form-container" class="hidden bg-zinc-900 border border-pink-500/40 p-6 rounded-2xl shadow-xl space-y-4">
+                <h3 class="text-lg font-bold text-white">Scrivi una nuova notizia</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Titolo dell'articolo</label>
+                        <input type="text" id="news-title" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-pink-500 text-sm" placeholder="Es. Grande vittoria nel derby!">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">URL Immagine (es. link foto o nome file)</label>
+                        <input type="text" id="news-image" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-pink-500 text-sm" placeholder="Es. https://... o foto.png">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Testo dell'articolo</label>
+                    <textarea id="news-body" rows="4" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-pink-500 text-sm" placeholder="Scrivi qui il contenuto completo dell'articolo..."></textarea>
+                </div>
+                <div class="flex justify-end gap-3">
+                    <button onclick="toggleNewsForm()" class="px-4 py-2 rounded-xl bg-zinc-800 text-gray-300 text-sm font-semibold hover:bg-zinc-700">Annulla</button>
+                    <button onclick="saveNews()" class="px-6 py-2 rounded-xl bg-pink-600 text-white text-sm font-bold hover:bg-pink-500 shadow-md">Pubblica</button>
+                </div>
+            </div>
+
+            <!-- News Feed Grid -->
+            <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Default Sample News Item -->
+                <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl overflow-hidden shadow-xl flex flex-col">
+                    <div class="h-48 bg-zinc-950 overflow-hidden relative">
+                        <img src="logo.png" alt="News preview" class="w-full h-full object-cover opacity-80">
+                        <span class="absolute top-3 left-3 bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full">Ufficiale</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow justify-between space-y-3">
+                        <div>
+                            <span class="text-xs text-gray-400">12 Novembre 2026</span>
+                            <h3 class="text-xl font-bold text-white mt-1">Pronti per la nuova stagione!</h3>
+                            <p class="text-gray-300 text-sm mt-2 leading-relaxed">I Basi Azotate FC sono ufficialmente carichi e pronti a scendere in campo per conquistare la vetta della classifica. Seguiteci su tutti i canali social!</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- TAB 7: REGOLAMENTO DETTAGLIATO -->
-        <div id="regolamento" class="tab-content">
-            <div class="card">
-                <div class="header-container">
-                    <img src="logo.png" alt="Logo The Last Stand" class="header-logo">
-                    <h1>Regolamento Ufficiale</h1>
-                    <p>Norme e Direttive di Sopravvivenza</p>
-                </div>
-                
-                <h3 style="color: var(--primary-red); margin-bottom: 0.8rem; text-transform: uppercase;">1. Comportamento Generale</h3>
-                <ul class="rules-list" style="margin-bottom: 1.8rem;">
-                    <li>Rispetto reciproco obbligatorio tra giocatori e verso i membri dello Staff.</li>
-                    <li>L'uso di cheat, hack, X-Ray, autoclicker o bug exploit comporterà il **BAN PERMANENTE** senza preavviso.</li>
-                    <li>L'impersonificazione dello staff o la falsificazione d'identità è severamente vietata.</li>
-                </ul>
+    </main>
 
-                <h3 style="color: var(--primary-red); margin-bottom: 0.8rem; text-transform: uppercase;">2. Chat e Comunicazione</h3>
-                <ul class="rules-list" style="margin-bottom: 1.8rem;">
-                    <li>Vietato lo spam, il caps lock eccessivo e l'invio ripetuto dello stesso messaggio.</li>
-                    <li>È vietata qualsiasi forma di bestemmia, insulto pesante, discriminazione o discorso d'odio.</li>
-                    <li>No sponsorizzazioni o link ad altri server/canali esterni senza autorizzazione dello Staff.</li>
-                </ul>
-
-                <h3 style="color: var(--primary-red); margin-bottom: 0.8rem; text-transform: uppercase;">3. Basi, Griefing e Claim</h3>
-                <ul class="rules-list" style="margin-bottom: 1.8rem;">
-                    <li>È vietato distruggere senza motivo o rovinare inutilmente le strutture altrui (Griefing abusivo).</li>
-                    <li>Rispetta le zone protette o i claim dei rifugiati.</li>
-                    <li>Non costruire trappole per i giocatori allo Spawn o nei punti di comparsa iniziale.</li>
-                </ul>
-
-                <h3 style="color: var(--primary-red); margin-bottom: 0.8rem; text-transform: uppercase;">4. PvP e Combattimento</h3>
-                <ul class="rules-list">
-                    <li>Il combattimento tra giocatori è consentito nelle zone neutre, ma è vietato il Kill-Farm (uccidere ripetutamente lo stesso giocatore appena rientrato).</li>
-                    <li>Disconnettersi durante un combattimento (Combat Log) comporta la sanzione immediata.</li>
-                </ul>
-            </div>
-        </div>
-
-    </div>
-
-    <footer>
-        <p>&copy; 2026 The Last Stand - Survival Zombie Server. Tutti i diritti riservati.</p>
+    <!-- FOOTER -->
+    <footer class="bg-black/90 border-t border-zinc-800/80 py-6 mt-12 text-center text-xs text-gray-500">
+        <p>&copy; 2026 Basi Azotate FC. Tutti i diritti riservati. Pro Clubs Web App.</p>
     </footer>
 
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // CONFIGURAZIONE DISCORD
-        const CLIENT_ID = '1537954693987438602'; 
-        const REDIRECT_URI = window.location.origin + window.location.pathname;
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('nav button').forEach(el => {
+                el.classList.remove('bg-pink-500', 'text-white', 'shadow-md');
+                el.classList.add('text-zinc-400', 'hover:text-white', 'hover:bg-zinc-800');
+            });
 
-        // WEBHOOK DEDICATI
-        const WEBHOOK_WHITELIST = 'https://discord.com/api/webhooks/1537962063899394130/J3ruV7rhz6N914Q79lYs9Jr8R13nqf5kwvs3tET_Pt0bRbMHyjEwwlaS2Rqn-1FTQZI4';
-        const WEBHOOK_STAFF = 'https://discord.com/api/webhooks/1537962063899394130/J3ruV7rhz6N914Q79lYs9Jr8R13nqf5kwvs3tET_Pt0bRbMHyjEwwlaS2Rqn-1FTQZI4';
-
-        let userData = null;
-
-        function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
-            
             document.getElementById(tabId).classList.add('active');
-            const navLink = document.getElementById('nav-' + tabId);
-            if (navLink) navLink.classList.add('active');
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.remove('text-zinc-400', 'hover:text-white', 'hover:bg-zinc-800');
+            activeBtn.classList.add('bg-pink-500', 'text-white', 'shadow-md');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function loginWithDiscord(targetTab) {
-            const scope = 'identify';
-            const state = targetTab || 'whitelist';
-            const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=${scope}&state=${state}`;
-            window.location.href = authUrl;
+        // Toggle News Input Form
+        function toggleNewsForm() {
+            const form = document.getElementById('news-form-container');
+            form.classList.toggle('hidden');
         }
 
-        function logoutDiscord() {
-            localStorage.removeItem('discord_access_token');
-            localStorage.removeItem('discord_user');
-            userData = null;
-            
-            // Ripristina la UI dei form
-            document.querySelectorAll('.auth-form').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('.discordAuthSection').forEach(el => el.style.display = 'block');
-            
-            // Pulisce i campi dei form
-            document.getElementById('whitelistForm').reset();
-            document.getElementById('applicationForm').reset();
-            localStorage.removeItem('draft_whitelist');
-            localStorage.removeItem('draft_application');
-            
-            window.history.replaceState({}, document.title, window.location.pathname);
-        }
+        // Save & Load Dynamic News via LocalStorage
+        function saveNews() {
+            const title = document.getElementById('news-title').value.trim();
+            const image = document.getElementById('news-image').value.trim();
+            const body = document.getElementById('news-body').value.trim();
 
-        // GESTIONE BOZZE LOCALSTORAGE
-        function saveDraft(formType) {
-            if (formType === 'whitelist') {
-                const draft = {
-                    wlMcUsername: document.getElementById('wlMcUsername').value,
-                    wlEta: document.getElementById('wlEta').value,
-                    wlEsperienza: document.getElementById('wlEsperienza').value,
-                    wlStileGioco: document.getElementById('wlStileGioco').value,
-                    wlReazioneMorte: document.getElementById('wlReazioneMorte').value,
-                    wlLoreCheck: document.getElementById('wlLoreCheck').value,
-                    wlMicrofono: document.getElementById('wlMicrofono').value,
-                    wlComeHaiTrovato: document.getElementById('wlComeHaiTrovato').value
-                };
-                localStorage.setItem('draft_whitelist', JSON.stringify(draft));
-            } else if (formType === 'application') {
-                const draft = {
-                    mcUsername: document.getElementById('mcUsername').value,
-                    etaOOC: document.getElementById('etaOOC').value,
-                    ruolo: document.getElementById('ruolo').value,
-                    esperienze: document.getElementById('esperienze').value,
-                    motivazione: document.getElementById('motivazione').value
-                };
-                localStorage.setItem('draft_application', JSON.stringify(draft));
-            }
-        }
-
-        function loadDraft(formType) {
-            if (formType === 'whitelist') {
-                const saved = localStorage.getItem('draft_whitelist');
-                if (saved) {
-                    const draft = JSON.parse(saved);
-                    document.getElementById('wlMcUsername').value = draft.wlMcUsername || '';
-                    document.getElementById('wlEta').value = draft.wlEta || '';
-                    document.getElementById('wlEsperienza').value = draft.wlEsperienza || '';
-                    document.getElementById('wlStileGioco').value = draft.wlStileGioco || '';
-                    document.getElementById('wlReazioneMorte').value = draft.wlReazioneMorte || '';
-                    document.getElementById('wlLoreCheck').value = draft.wlLoreCheck || '';
-                    document.getElementById('wlMicrofono').value = draft.wlMicrofono || '';
-                    document.getElementById('wlComeHaiTrovato').value = draft.wlComeHaiTrovato || '';
-                }
-            } else if (formType === 'application') {
-                const saved = localStorage.getItem('draft_application');
-                if (saved) {
-                    const draft = JSON.parse(saved);
-                    document.getElementById('mcUsername').value = draft.mcUsername || '';
-                    document.getElementById('etaOOC').value = draft.etaOOC || '';
-                    document.getElementById('ruolo').value = draft.ruolo || '';
-                    document.getElementById('esperienze').value = draft.esperienze || '';
-                    document.getElementById('motivazione').value = draft.motivazione || '';
-                }
-            }
-        }
-
-        function manualSaveMessage(formType) {
-            saveDraft(formType);
-            const statusId = formType === 'whitelist' ? 'statusWhitelist' : 'statusMessage';
-            showStatus(statusId, 'Bozza salvata con successo sul browser!', 'success');
-        }
-
-        function applyUserData(user) {
-            userData = user;
-            document.querySelectorAll('.discordAuthSection').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('.auth-form').forEach(el => el.style.display = 'block');
-            
-            const avatarUrl = user.avatar 
-                ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
-                : 'https://cdn.discordapp.com/embed/avatars/0.png';
-
-            document.querySelectorAll('.userName').forEach(el => el.innerText = `${user.username}`);
-            document.querySelectorAll('.userId').forEach(el => el.innerText = `ID Discord: ${user.id}`);
-            document.querySelectorAll('.userAvatar').forEach(el => el.src = avatarUrl);
-
-            // Carica le rispettive bozze salvate in precedenza
-            loadDraft('whitelist');
-            loadDraft('application');
-        }
-
-        window.onload = function() {
-            const fragment = new URLSearchParams(window.location.hash.slice(1));
-            const accessToken = fragment.get('access_token');
-            const targetTab = fragment.get('state') || 'home';
-
-            if (accessToken) {
-                localStorage.setItem('discord_access_token', accessToken);
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
-
-            const storedToken = localStorage.getItem('discord_access_token');
-            const cachedUser = localStorage.getItem('discord_user');
-
-            showTab(targetTab);
-
-            if (storedToken) {
-                if (cachedUser) {
-                    applyUserData(JSON.parse(cachedUser));
-                } else {
-                    fetch('https://discord.com/api/users/@me', {
-                        headers: { authorization: `Bearer ${storedToken}` }
-                    })
-                    .then(res => res.json())
-                    .then(user => {
-                        if (user.id) {
-                            localStorage.setItem('discord_user', JSON.stringify(user));
-                            applyUserData(user);
-                        } else {
-                            logoutDiscord();
-                        }
-                    })
-                    .catch(() => logoutDiscord());
-                }
-            }
-        };
-
-        // INVIO RICHIESTA WHITELIST
-        function sendWhitelist(event) {
-            event.preventDefault();
-
-            if (!userData) {
-                showStatus('statusWhitelist', 'Errore: Devi effettuare il login con Discord.', 'error');
+            if (!title || !body) {
+                alert('Inserisci almeno un titolo e il testo dell\'articolo!');
                 return;
             }
 
-            const submitBtn = document.getElementById('submitWlBtn');
-            submitBtn.disabled = true;
-            submitBtn.innerText = 'Invio in corso...';
-
-            const userAvatarUrl = userData.avatar 
-                ? `https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png`
-                : 'https://cdn.discordapp.com/embed/avatars/0.png';
-
-            const payload = {
-                username: "Whitelist - The Last Stand",
-                embeds: [{
-                    title: "📝 NUOVA RICHIESTA WHITELIST",
-                    color: 16723246,
-                    thumbnail: { url: userAvatarUrl },
-                    fields: [
-                        { name: "👤 Utente Discord", value: `<@${userData.id}> (${userData.username})`, inline: true },
-                        { name: "🎮 Nickname MC", value: document.getElementById('wlMcUsername').value, inline: true },
-                        { name: "🎂 Età", value: document.getElementById('wlEta').value, inline: true },
-                        { name: "⏳ Anni su Minecraft", value: document.getElementById('wlEsperienza').value, inline: true },
-                        { name: "🎯 Stile di Gioco", value: document.getElementById('wlStileGioco').value, inline: true },
-                        { name: "🎙️ Microfono", value: document.getElementById('wlMicrofono').value, inline: true },
-                        { name: "💀 Reazione in caso di Morte/Looting", value: document.getElementById('wlReazioneMorte').value, inline: false },
-                        { name: "🩸 Conoscenza Luna di Sangue", value: document.getElementById('wlLoreCheck').value, inline: false },
-                        { name: "🔎 Come ci ha trovati", value: document.getElementById('wlComeHaiTrovato').value, inline: false }
-                    ],
-                    footer: { text: "The Last Stand - Sistema Whitelist" },
-                    timestamp: new Date().toISOString()
-                }]
+            const newArticle = {
+                title,
+                image: image || 'logo.png',
+                body,
+                date: new Date().toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })
             };
 
-            fetch(WEBHOOK_WHITELIST, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            })
-            .then(response => {
-                if (response.ok) {
-                    showStatus('statusWhitelist', 'Richiesta Whitelist inviata con successo!', 'success');
-                    document.getElementById('whitelistForm').reset();
-                    localStorage.removeItem('draft_whitelist');
-                } else {
-                    showStatus('statusWhitelist', 'Errore durante l\'invio.', 'error');
-                }
-            })
-            .catch(() => {
-                showStatus('statusWhitelist', 'Errore di connessione.', 'error');
-            })
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerText = 'Invia Richiesta Whitelist';
+            let savedNews = JSON.parse(localStorage.getItem('basi_azotate_news') || '[]');
+            savedNews.unshift(newArticle);
+            localStorage.setItem('basi_azotate_news', JSON.stringify(savedNews));
+
+            // Reset form
+            document.getElementById('news-title').value = '';
+            document.getElementById('news-image').value = '';
+            document.getElementById('news-body').value = '';
+            toggleNewsForm();
+
+            loadNews();
+        }
+
+        function loadNews() {
+            const container = document.getElementById('news-container');
+            let savedNews = JSON.parse(localStorage.getItem('basi_azotate_news') || '[]');
+
+            // Default static article if none in storage
+            let html = `
+                <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl overflow-hidden shadow-xl flex flex-col">
+                    <div class="h-48 bg-zinc-950 overflow-hidden relative">
+                        <img src="logo.png" alt="News preview" class="w-full h-full object-cover opacity-80">
+                        <span class="absolute top-3 left-3 bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full">Ufficiale</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow justify-between space-y-3">
+                        <div>
+                            <span class="text-xs text-gray-400">12 Novembre 2026</span>
+                            <h3 class="text-xl font-bold text-white mt-1">Pronti per la nuova stagione!</h3>
+                            <p class="text-gray-300 text-sm mt-2 leading-relaxed">I Basi Azotate FC sono ufficialmente carichi e pronti a scendere in campo per conquistare la vetta della classifica. Seguiteci su tutti i canali social!</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            savedNews.forEach(item => {
+                html += `
+                    <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl overflow-hidden shadow-xl flex flex-col">
+                        <div class="h-48 bg-zinc-950 overflow-hidden relative">
+                            <img src="${item.image}" alt="News image" class="w-full h-full object-cover opacity-90" onerror="this.src='logo.png'">
+                            <span class="absolute top-3 left-3 bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full">News</span>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow justify-between space-y-3">
+                            <div>
+                                <span class="text-xs text-gray-400">${item.date}</span>
+                                <h3 class="text-xl font-bold text-white mt-1">${item.title}</h3>
+                                <p class="text-gray-300 text-sm mt-2 leading-relaxed whitespace-pre-line">${item.body}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
             });
+
+            container.innerHTML = html;
         }
 
-        // INVIO CANDIDATURA STAFF
-        function sendApplication(event) {
-            event.preventDefault();
-
-            if (!userData) {
-                showStatus('statusMessage', 'Errore: Devi effettuare il login con Discord.', 'error');
-                return;
-            }
-
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.innerText = 'Invio in corso...';
-
-            const userAvatarUrl = userData.avatar 
-                ? `https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png`
-                : 'https://cdn.discordapp.com/embed/avatars/0.png';
-
-            const payload = {
-                username: "Candidature - The Last Stand",
-                embeds: [{
-                    title: "🛡️ NUOVA CANDIDATURA STAFF",
-                    color: 16723246,
-                    thumbnail: { url: userAvatarUrl },
-                    fields: [
-                        { name: "👤 Utente Discord", value: `<@${userData.id}> (${userData.username})`, inline: true },
-                        { name: "🎮 Nickname Minecraft", value: document.getElementById('mcUsername').value, inline: true },
-                        { name: "🎂 Età", value: document.getElementById('etaOOC').value, inline: true },
-                        { name: "🛡️ Ruolo Desiderato", value: document.getElementById('ruolo').value, inline: false },
-                        { name: "📜 Esperienze Passate", value: document.getElementById('esperienze').value, inline: false },
-                        { name: "📌 Motivazione", value: document.getElementById('motivazione').value, inline: false }
-                    ],
-                    footer: { text: "The Last Stand - Sistema Staff" },
-                    timestamp: new Date().toISOString()
-                }]
-            };
-
-            fetch(WEBHOOK_STAFF, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            })
-            .then(response => {
-                if (response.ok) {
-                    showStatus('statusMessage', 'Candidatura Staff inviata con successo!', 'success');
-                    document.getElementById('applicationForm').reset();
-                    localStorage.removeItem('draft_application');
-                } else {
-                    showStatus('statusMessage', 'Errore durante l\'invio.', 'error');
-                }
-            })
-            .catch(() => {
-                showStatus('statusMessage', 'Errore di connessione.', 'error');
-            })
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerText = 'Invia Candidatura Staff';
-            });
-        }
-
-        function showStatus(elementId, text, type) {
-            const el = document.getElementById(elementId);
-            if (!el) return;
-            el.innerText = text;
-            el.className = 'status-message ' + (type === 'success' ? 'status-success' : 'status-error');
-            el.style.display = 'block';
-            setTimeout(() => { el.style.display = 'none'; }, 6000);
-        }
+        // Load news on page startup
+        window.onload = loadNews;
     </script>
 </body>
 </html>
