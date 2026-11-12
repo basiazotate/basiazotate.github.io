@@ -74,7 +74,7 @@
 
                 <h2 class="text-4xl md:text-7xl font-black text-white tracking-tight uppercase italic">Basi Azotate <span class="text-pink-500">FC</span></h2>
                 <p class="text-gray-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
-                    Spogliatoio unito, fame di vittorie e zero scuse. La casa ufficiale della nostra squadra sui campi virtuali.
+                    Spogliatoio unito, fame di vittorie e zero scuse. La casa ufficiale della squadra sui campi virtuali.
                 </p>
 
                 <div class="flex flex-wrap justify-center gap-4 pt-2">
@@ -273,15 +273,35 @@
                 </div>
             </div>
 
-            <!-- News Feed Grid con la notizia inserita direttamente -->
+            <!-- News Feed Grid con le notizie inserite -->
             <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
-                <!-- NOTIZIA 1: Stop alla striscia -->
+                <!-- NOTIZIA NUOVA: Promozione in Divisione 2 -->
+                <div class="bg-zinc-900/80 border border-pink-500/60 hover:border-pink-500 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between transition-all">
+                    <div>
+                        <div class="h-48 bg-zinc-950 overflow-hidden relative cursor-pointer" onclick="openNewsModal('promozione-div2')">
+                            <img src="https://r2.fivemanage.com/oeOe8MB511clSahATTXRH/MATCH(1).png" alt="News image" class="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-500" onerror="this.src='log.png'">
+                            <span class="absolute top-3 left-3 bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse">STORICO 🏆</span>
+                        </div>
+                        <div class="p-6 space-y-2">
+                            <span class="text-xs text-pink-400 font-semibold">12 Novembre 2026</span>
+                            <h3 class="text-xl font-bold text-white hover:text-pink-400 cursor-pointer transition-colors" onclick="openNewsModal('promozione-div2')">NELLA STORIA: LE BASI AZOTATE FC VOLANO IN DIVISIONE 2! 🚀🏆⚽</h3>
+                            <p class="text-gray-300 text-sm leading-relaxed">Un traguardo leggendario, un sogno che diventa realtà. Le Basi Azotate FC conquistano ufficialmente la promozione in Divisione 2...</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 flex items-center justify-between mt-4">
+                        <button onclick="openNewsModal('promozione-div2')" class="text-xs font-bold text-pink-400 hover:text-pink-300 uppercase tracking-wider">
+                            Leggi tutto &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- NOTIZIA PRECEDENTE: Stop alla striscia -->
                 <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/40 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between transition-all">
                     <div>
                         <div class="h-48 bg-zinc-950 overflow-hidden relative cursor-pointer" onclick="openNewsModal('stop-striscia')">
                             <img src="https://r2.fivemanage.com/oeOe8MB511clSahATTXRH/Screenshot2026-11-12150706.png" alt="News image" class="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-500" onerror="this.src='log.png'">
-                            <span class="absolute top-3 left-3 bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full">News</span>
+                            <span class="absolute top-3 left-3 bg-zinc-700 text-white text-xs font-bold px-3 py-1 rounded-full">News</span>
                         </div>
                         <div class="p-6 space-y-2">
                             <span class="text-xs text-gray-400">12 Novembre 2026</span>
@@ -325,8 +345,14 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Database locale degli articoli scritti direttamente nel codice
+        // Database locale degli articoli
         const articlesDB = {
+            'promozione-div2': {
+                title: "NELLA STORIA: LE BASI AZOTATE FC VOLANO IN DIVISIONE 2! 🚀🏆⚽",
+                date: "12 Novembre 2026",
+                image: "https://r2.fivemanage.com/oeOe8MB511clSahATTXRH/MATCH(1).png",
+                body: `Un traguardo leggendario, un sogno che diventa realtà. Le Basi Azotate FC conquistano ufficialmente la promozione in Divisione 2 al termine di una battaglia epica, chiudendo i conti con il risultato di 1-0 e scrivendo una delle pagine più belle e indimenticabili della storia del club.\n\nA decidere l'incontro che vale una stagione intera ci ha pensato lui, l'uomo copertina di questo periodo magico: Mepiac Lucazz. Quando il cronometro segnava appena il 2° minuto di gioco, una sferzata improvvisa ha sorpreso la retroguardia avversaria, trasformandosi nel gol più pesante e dolce dell'anno. Un lampo fulmineo che ha fatto esplodere la gioia in campo e sugli spalti, indirizzando subito la partita sui binari giusti.\n\nDa quel momento in poi è stata una vera e propria prova di resistenza, carattere e cuore. Gli avversari hanno provato a reagire, ma la squadra ha lottato su ogni pallone, blindando il vantaggio con le unghie e con i denti fino al triplice fischio. Mister Prof-Ugo, visibilmente emozionato a fine gara, ha potuto finalmente celebrare insieme ai suoi ragazzi il coronamento di mesi di lavoro duro, sudore e sacrifici.\n\nLa Divisione 2 è realtà. Le Basi Azotate FC salgono di livello, pronte a misurarsi con nuove sfide e a dimostrare di che pasta sono fatte. Ma oggi, prima di pensare al futuro, è il momento di fare festa: il laboratorio si prende la scena! 🔵⚪🔥`
+            },
             'stop-striscia': {
                 title: "STOP ALLA STRISCIA: LA CORSA DELLE BASI AZOTATE FC SI FERMA A QUOTA SEI 🛑⚽",
                 date: "12 Novembre 2026",
