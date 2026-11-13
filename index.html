@@ -372,15 +372,15 @@
                 </div>
             </div>
 
-            <!-- News Feed Grid con le notizie inserite -->
+            <!-- News Feed Grid con le notizie inserite (immagini a tutto schermo 'object-cover') -->
             <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
                 <!-- NOTIZIA 3: Vittoria 4-2 sui Krakens (con foto a.png) -->
                 <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/40 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between transition-all">
                     <div>
-                        <div class="h-48 bg-zinc-950 overflow-hidden relative cursor-pointer flex items-center justify-center p-2" onclick="openNewsModal('krakens-4-2')">
-                            <img src="https://r2.fivemanage.com/oeOe8MB511clSahATTXRH/a.png" alt="News image" class="w-full h-full object-contain opacity-95 hover:scale-105 transition-transform duration-500" onerror="this.src='log.png'">
-                            <span class="absolute top-3 left-3 bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full">Match Report</span>
+                        <div class="h-56 bg-zinc-950 overflow-hidden relative cursor-pointer" onclick="openNewsModal('krakens-4-2')">
+                            <img src="https://r2.fivemanage.com/oeOe8MB511clSahATTXRH/a.png" alt="News image" class="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-500" onerror="this.src='log.png'">
+                            <span class="absolute top-3 left-3 bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">Match Report</span>
                         </div>
                         <div class="p-6 space-y-2">
                             <span class="text-xs text-gray-400">12 Novembre 2026</span>
@@ -395,12 +395,12 @@
                     </div>
                 </div>
 
-                <!-- NOTIZIA 1: Promozione in Divisione 2 (con MATCH(1).png) -->
+                <!-- NOTIZIA 1: Promozione in Divisione 2 (con d.png) -->
                 <div class="bg-zinc-900/80 border border-pink-500/60 hover:border-pink-500 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between transition-all">
                     <div>
-                        <div class="h-48 bg-zinc-950 overflow-hidden relative cursor-pointer flex items-center justify-center p-2" onclick="openNewsModal('promozione-div2')">
-                            <img src="https://r2.fivemanage.com/oeOe8MB511clSahATTXRH/MATCH(1).png" alt="News image" class="w-full h-full object-contain opacity-95 hover:scale-105 transition-transform duration-500" onerror="this.src='log.png'">
-                            <span class="absolute top-3 left-3 bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse">STORICO 🏆</span>
+                        <div class="h-56 bg-zinc-950 overflow-hidden relative cursor-pointer" onclick="openNewsModal('promozione-div2')">
+                            <img src="d.png" alt="News image" class="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-500" onerror="this.src='log.png'">
+                            <span class="absolute top-3 left-3 bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md animate-pulse">STORICO 🏆</span>
                         </div>
                         <div class="p-6 space-y-2">
                             <span class="text-xs text-pink-400 font-semibold">12 Novembre 2026</span>
@@ -418,9 +418,9 @@
                 <!-- NOTIZIA 2: Stop alla striscia -->
                 <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/40 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between transition-all">
                     <div>
-                        <div class="h-48 bg-zinc-950 overflow-hidden relative cursor-pointer flex items-center justify-center p-2" onclick="openNewsModal('stop-striscia')">
-                            <img src="https://r2.fivemanage.com/oeOe8MB511clSahATTXRH/Screenshot2026-11-12150706.png" alt="News image" class="w-full h-full object-contain opacity-95 hover:scale-105 transition-transform duration-500" onerror="this.src='log.png'">
-                            <span class="absolute top-3 left-3 bg-zinc-700 text-white text-xs font-bold px-3 py-1 rounded-full">News</span>
+                        <div class="h-56 bg-zinc-950 overflow-hidden relative cursor-pointer" onclick="openNewsModal('stop-striscia')">
+                            <img src="https://r2.fivemanage.com/oeOe8MB511clSahATTXRH/Screenshot2026-11-12150706.png" alt="News image" class="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-500" onerror="this.src='log.png'">
+                            <span class="absolute top-3 left-3 bg-zinc-700 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">News</span>
                         </div>
                         <div class="p-6 space-y-2">
                             <span class="text-xs text-gray-400">12 Novembre 2026</span>
@@ -443,8 +443,8 @@
     <!-- MODALE LETTURA ARTICOLO COMPLETO -->
     <div id="news-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-zinc-900 border border-zinc-800 max-w-2xl w-full rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
-            <div id="modal-image-container" class="h-64 bg-zinc-950 relative flex items-center justify-center p-2">
-                <img id="modal-img" src="" alt="News" class="w-full h-full object-contain">
+            <div id="modal-image-container" class="h-72 bg-zinc-950 relative">
+                <img id="modal-img" src="" alt="News" class="w-full h-full object-cover">
                 <button onclick="closeNewsModal()" class="absolute top-4 right-4 w-9 h-9 bg-black/70 hover:bg-black text-white rounded-full flex items-center justify-center backdrop-blur-md transition-all">
                     <i class="fas fa-times"></i>
                 </button>
@@ -475,7 +475,7 @@
             'promozione-div2': {
                 title: "NELLA STORIA: LE BASI AZOTATE FC VOLANO IN DIVISIONE 2! 🚀🏆⚽",
                 date: "12 Novembre 2026",
-                image: "https://r2.fivemanage.com/oeOe8MB511clSahATTXRH/MATCH(1).png",
+                image: "d.png",
                 body: `Un traguardo leggendario, un sogno che diventa realtà. Le Basi Azotate FC conquistano ufficialmente la promozione in Divisione 2 al termine di una battaglia epica, chiudendo i conti con il risultato di 1-0 e scrivendo una delle pagine più belle e indimenticabili della storia del club.\n\nA decidere l'incontro che vale una stagione intera ci ha pensato lui, l'uomo copertina di questo periodo magico: Mepiac Lucazz. Quando il cronometro segnava appena il 2° minuto di gioco, una sferzata improvvisa ha sorpreso la retroguardia avversaria, trasformandosi nel gol più pesante e dolce dell'anno. Un lampo fulmineo che ha fatto esplodere la gioia in campo e sugli spalti, indirizzando subito la partita sui binari giusti.\n\nDa quel momento in poi è stata una vera e propria prova di resistenza, carattere e cuore. Gli avversari hanno provato a reagire, ma la squadra ha lottato su ogni pallone, blindando il vantaggio con le unghie e con i denti fino al triplice fischio. Mister Prof-Ugo, visibilmente emozionato a fine gara, ha potuto finalmente celebrare insieme ai suoi ragazzi il coronamento di mesi di lavoro duro, sudore e sacrifici.\n\nLa Divisione 2 è realtà. Le Basi Azotate FC salgono di livello, pronte a misurarsi con nuove sfide e a dimostrare di che pasta sono fatte. Ma oggi, prima di pensare al futuro, è il momento di fare festa: il laboratorio si prende la scena! 🔵⚪🔥`
             },
             'stop-striscia': {
