@@ -40,6 +40,7 @@
             <nav class="flex flex-wrap justify-center gap-1.5 bg-zinc-900/90 p-1.5 rounded-xl border border-zinc-800">
                 <button onclick="switchTab('home')" id="btn-home" class="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all bg-pink-600 text-white shadow-md">Home</button>
                 <button onclick="switchTab('stats')" id="btn-stats" class="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all text-zinc-400 hover:text-white hover:bg-zinc-800">Stats</button>
+                <button onclick="switchTab('risultati')" id="btn-risultati" class="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all text-zinc-400 hover:text-white hover:bg-zinc-800">Risultati</button>
                 <button onclick="switchTab('rosa')" id="btn-rosa" class="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all text-zinc-400 hover:text-white hover:bg-zinc-800">Rosa</button>
                 <button onclick="switchTab('notizie')" id="btn-notizie" class="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all text-zinc-400 hover:text-white hover:bg-zinc-800">Notizie</button>
             </nav>
@@ -78,8 +79,8 @@
                 </p>
 
                 <div class="flex flex-wrap justify-center gap-4 pt-2">
-                    <button onclick="switchTab('stats')" class="bg-pink-600 hover:bg-pink-500 text-white font-bold px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-pink-600/30 text-xs uppercase tracking-wider flex items-center gap-2">
-                        <i class="fas fa-chart-bar"></i> Voti & Statistiche
+                    <button onclick="switchTab('risultati')" class="bg-pink-600 hover:bg-pink-500 text-white font-bold px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-pink-600/30 text-xs uppercase tracking-wider flex items-center gap-2">
+                        <i class="fas fa-trophy"></i> Risultati Importanti
                     </button>
                     <button onclick="switchTab('rosa')" class="bg-zinc-900 hover:bg-zinc-800 text-white font-semibold px-8 py-3.5 rounded-xl border border-zinc-800 transition-all text-xs uppercase tracking-wider flex items-center gap-2">
                         <i class="fas fa-users"></i> La Rosa Titolare
@@ -125,6 +126,104 @@
                 <div class="w-full h-[650px] bg-zinc-950 rounded-xl overflow-hidden border border-zinc-800 relative">
                     <iframe src="https://proclubsfinder.com/club/squad?clubId=672823&clubName=Basi%20Azotate%20FC&platform=common-gen5" class="w-full h-full border-0" title="Basi Azotate FC Stats"></iframe>
                 </div>
+            </div>
+        </div>
+
+        <!-- TAB RISULTATI -->
+        <div id="risultati" class="tab-content space-y-8">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Risultati & Match Clou</h2>
+                    <p class="text-sm text-gray-400">I dettagli delle partite più importanti della stagione.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Match 1: Basi Azotate vs Mang Le Pizz -->
+                <div class="bg-zinc-900/90 border border-zinc-800 hover:border-pink-500/50 rounded-3xl p-6 shadow-xl space-y-6">
+                    <div class="flex justify-between items-center text-xs font-semibold text-pink-500 uppercase tracking-widest bg-pink-500/10 px-3 py-1.5 rounded-xl border border-pink-500/20">
+                        <span>Promozione Div. 2</span>
+                        <span>1-0</span>
+                    </div>
+
+                    <div class="flex items-center justify-between gap-4 py-4">
+                        <div class="flex flex-col items-center text-center w-1/3 space-y-2">
+                            <img src="log.png" alt="Basi Azotate" class="w-16 h-16 object-contain rounded-full p-1 bg-black border border-pink-500/40">
+                            <span class="text-xs font-bold text-white uppercase">Basi Azotate</span>
+                        </div>
+                        
+                        <div class="w-1/3 text-center">
+                            <div class="text-3xl md:text-4xl font-black text-white tracking-widest bg-black/60 py-2 rounded-2xl border border-zinc-800">
+                                1 - 0
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col items-center text-center w-1/3 space-y-2">
+                            <img src="https://r2.fivemanage.com/oeOe8MB511clSahATTXRH/l111657.png" alt="Mang Le Pizz" class="w-16 h-16 object-contain rounded-full p-1 bg-black border border-zinc-800">
+                            <span class="text-xs font-bold text-gray-300 uppercase">Mang Le Pizz</span>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-zinc-800 pt-4 space-y-2">
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Marcatori:</p>
+                        <div class="space-y-1 text-sm">
+                            <div class="flex justify-between items-center bg-zinc-950 px-3 py-2 rounded-xl border border-zinc-800/80">
+                                <span class="font-bold text-white flex items-center gap-2"><i class="fas fa-futbol text-pink-500 text-xs"></i> M. Lucazz</span>
+                                <span class="text-xs font-mono text-pink-400 bg-pink-500/10 px-2 py-0.5 rounded">2'</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Match 2: Basi Azotate vs Krakens FC -->
+                <div class="bg-zinc-900/90 border border-zinc-800 hover:border-pink-500/50 rounded-3xl p-6 shadow-xl space-y-6">
+                    <div class="flex justify-between items-center text-xs font-semibold text-pink-500 uppercase tracking-widest bg-pink-500/10 px-3 py-1.5 rounded-xl border border-pink-500/20">
+                        <span>League Match</span>
+                        <span>4-2</span>
+                    </div>
+
+                    <div class="flex items-center justify-between gap-4 py-4">
+                        <div class="flex flex-col items-center text-center w-1/3 space-y-2">
+                            <img src="log.png" alt="Basi Azotate" class="w-16 h-16 object-contain rounded-full p-1 bg-black border border-pink-500/40">
+                            <span class="text-xs font-bold text-white uppercase">Basi Azotate</span>
+                        </div>
+                        
+                        <div class="w-1/3 text-center">
+                            <div class="text-3xl md:text-4xl font-black text-white tracking-widest bg-black/60 py-2 rounded-2xl border border-zinc-800">
+                                4 - 2
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col items-center text-center w-1/3 space-y-2">
+                            <img src="https://r2.fivemanage.com/oeOe8MB511clSahATTXRH/70194c654a20f46e1091dc22f054b48ftplv-tiktokx-cropcenter_1080_1080.png" alt="Krakens FC" class="w-16 h-16 object-contain rounded-full p-1 bg-black border border-zinc-800">
+                            <span class="text-xs font-bold text-gray-300 uppercase">Krakens FC</span>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-zinc-800 pt-4 space-y-2">
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Marcatori:</p>
+                        <div class="space-y-1.5 text-sm max-h-40 overflow-y-auto pr-1">
+                            <div class="flex justify-between items-center bg-zinc-950 px-3 py-1.5 rounded-xl border border-zinc-800/80">
+                                <span class="font-bold text-white flex items-center gap-2"><i class="fas fa-futbol text-pink-500 text-xs"></i> K. Pocchia</span>
+                                <span class="text-xs font-mono text-pink-400 bg-pink-500/10 px-2 py-0.5 rounded">10'</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-zinc-950 px-3 py-1.5 rounded-xl border border-zinc-800/80">
+                                <span class="font-bold text-white flex items-center gap-2"><i class="fas fa-futbol text-pink-500 text-xs"></i> C. Cribio</span>
+                                <span class="text-xs font-mono text-pink-400 bg-pink-500/10 px-2 py-0.5 rounded">36'</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-zinc-950 px-3 py-1.5 rounded-xl border border-zinc-800/80">
+                                <span class="font-bold text-white flex items-center gap-2"><i class="fas fa-futbol text-pink-500 text-xs"></i> M. Lucazz</span>
+                                <span class="text-xs font-mono text-pink-400 bg-pink-500/10 px-2 py-0.5 rounded">45+1'</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-zinc-950 px-3 py-1.5 rounded-xl border border-zinc-800/80">
+                                <span class="font-bold text-white flex items-center gap-2"><i class="fas fa-futbol text-pink-500 text-xs"></i> K. Pocchia</span>
+                                <span class="text-xs font-mono text-pink-400 bg-pink-500/10 px-2 py-0.5 rounded">67'</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -276,11 +375,31 @@
             <!-- News Feed Grid con le notizie inserite -->
             <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
-                <!-- NOTIZIA NUOVA: Promozione in Divisione 2 -->
+                <!-- NOTIZIA 3: Vittoria 4-2 sui Krakens (con foto a.png) -->
+                <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/40 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between transition-all">
+                    <div>
+                        <div class="h-48 bg-zinc-950 overflow-hidden relative cursor-pointer flex items-center justify-center p-2" onclick="openNewsModal('krakens-4-2')">
+                            <img src="https://r2.fivemanage.com/oeOe8MB511clSahATTXRH/a.png" alt="News image" class="w-full h-full object-contain opacity-95 hover:scale-105 transition-transform duration-500" onerror="this.src='log.png'">
+                            <span class="absolute top-3 left-3 bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full">Match Report</span>
+                        </div>
+                        <div class="p-6 space-y-2">
+                            <span class="text-xs text-gray-400">12 Novembre 2026</span>
+                            <h3 class="text-xl font-bold text-white hover:text-pink-400 cursor-pointer transition-colors" onclick="openNewsModal('krakens-4-2')">SPETTACOLO E GOL: LE BASI AZOTATE FC DOMINANO I KRAKENS PER 4-2! ⚽🔥</h3>
+                            <p class="text-gray-300 text-sm leading-relaxed">Una prestazione offensiva strabiliante regala tre punti d'oro e spettacolo puro ai tifosi presenti...</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 flex items-center justify-between mt-4">
+                        <button onclick="openNewsModal('krakens-4-2')" class="text-xs font-bold text-pink-400 hover:text-pink-300 uppercase tracking-wider">
+                            Leggi tutto &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- NOTIZIA 1: Promozione in Divisione 2 (con MATCH(1).png) -->
                 <div class="bg-zinc-900/80 border border-pink-500/60 hover:border-pink-500 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between transition-all">
                     <div>
-                        <div class="h-48 bg-zinc-950 overflow-hidden relative cursor-pointer" onclick="openNewsModal('promozione-div2')">
-                            <img src="https://r2.fivemanage.com/oeOe8MB511clSahATTXRH/MATCH(1).png" alt="News image" class="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-500" onerror="this.src='log.png'">
+                        <div class="h-48 bg-zinc-950 overflow-hidden relative cursor-pointer flex items-center justify-center p-2" onclick="openNewsModal('promozione-div2')">
+                            <img src="https://r2.fivemanage.com/oeOe8MB511clSahATTXRH/MATCH(1).png" alt="News image" class="w-full h-full object-contain opacity-95 hover:scale-105 transition-transform duration-500" onerror="this.src='log.png'">
                             <span class="absolute top-3 left-3 bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse">STORICO 🏆</span>
                         </div>
                         <div class="p-6 space-y-2">
@@ -296,11 +415,11 @@
                     </div>
                 </div>
 
-                <!-- NOTIZIA PRECEDENTE: Stop alla striscia -->
+                <!-- NOTIZIA 2: Stop alla striscia -->
                 <div class="bg-zinc-900/80 border border-zinc-800 hover:border-pink-500/40 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between transition-all">
                     <div>
-                        <div class="h-48 bg-zinc-950 overflow-hidden relative cursor-pointer" onclick="openNewsModal('stop-striscia')">
-                            <img src="https://r2.fivemanage.com/oeOe8MB511clSahATTXRH/Screenshot2026-11-12150706.png" alt="News image" class="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-500" onerror="this.src='log.png'">
+                        <div class="h-48 bg-zinc-950 overflow-hidden relative cursor-pointer flex items-center justify-center p-2" onclick="openNewsModal('stop-striscia')">
+                            <img src="https://r2.fivemanage.com/oeOe8MB511clSahATTXRH/Screenshot2026-11-12150706.png" alt="News image" class="w-full h-full object-contain opacity-95 hover:scale-105 transition-transform duration-500" onerror="this.src='log.png'">
                             <span class="absolute top-3 left-3 bg-zinc-700 text-white text-xs font-bold px-3 py-1 rounded-full">News</span>
                         </div>
                         <div class="p-6 space-y-2">
@@ -324,8 +443,8 @@
     <!-- MODALE LETTURA ARTICOLO COMPLETO -->
     <div id="news-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-zinc-900 border border-zinc-800 max-w-2xl w-full rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
-            <div id="modal-image-container" class="h-64 bg-zinc-950 relative">
-                <img id="modal-img" src="" alt="News" class="w-full h-full object-cover" onerror="this.src='log.png'">
+            <div id="modal-image-container" class="h-64 bg-zinc-950 relative flex items-center justify-center p-2">
+                <img id="modal-img" src="" alt="News" class="w-full h-full object-contain">
                 <button onclick="closeNewsModal()" class="absolute top-4 right-4 w-9 h-9 bg-black/70 hover:bg-black text-white rounded-full flex items-center justify-center backdrop-blur-md transition-all">
                     <i class="fas fa-times"></i>
                 </button>
@@ -347,6 +466,12 @@
     <script>
         // Database locale degli articoli
         const articlesDB = {
+            'krakens-4-2': {
+                title: "SPETTACOLO E GOL: LE BASI AZOTATE FC DOMINANO I KRAKENS PER 4-2! ⚽🔥",
+                date: "12 Novembre 2026",
+                image: "https://r2.fivemanage.com/oeOe8MB511clSahATTXRH/a.png",
+                body: `Una prova di forza straordinaria per le Basi Azotate FC, che si impongono con un pirotecnico 4-2 contro i Krakens FC al termine di una sfida entusiasmante e ricca di colpi di scena.\n\nLa partita si è subito infiammata: al 10' minuto è stato K. Pocchia ad aprire le danze con una conclusione chirurgica che ha fatto esultare i compagni. Nonostante il tentativo di reazione degli avversari, la squadra ha continuato a premere e al 36' ci ha pensato C. Cribio a raddoppiare con un tap-in da vero opportunista d'area di rigore.\n\nPrima della fine del primo tempo, proprio allo scadere (45+1'), è arrivato il tris firmato da M. Lucazz, che ha chiuso virtualmente i conti prima dell'intervallo.\n\nNella ripresa, nonostante qualche brivido di troppo, K. Pocchia ha calato il poker personale e di squadra al 67', spegnendo ogni speranza di rimonta avversaria e sigillando una vittoria meritata che conferma l'ottimo momento di forma del club.`
+            },
             'promozione-div2': {
                 title: "NELLA STORIA: LE BASI AZOTATE FC VOLANO IN DIVISIONE 2! 🚀🏆⚽",
                 date: "12 Novembre 2026",
